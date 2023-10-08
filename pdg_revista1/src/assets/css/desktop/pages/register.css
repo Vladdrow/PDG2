@@ -1,0 +1,45 @@
+.container {
+    padding-left: 0;
+    padding-right: 0;
+}
+.container h2 {
+    font-weight: bold !important;
+} 
+
+.register-box {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+.container .img-register {
+    margin: 0px;
+    /* display: none; */ /* Para mobile lo activamos */
+}
+
+.container .welcome-text{
+    padding: 10px 100px 0px 100px;
+}
+.container .welcome-text p{
+    font-size: 18px;
+}
+
+.container .form-register {
+    padding: 10px;
+}
+.container form .box-inp {
+    margin-top: 20px;
+    margin-bottom: 20px !important;
+    font-weight: bold;
+}
+.container .btn-contain{
+    text-align: center;
+}
+.btn-contain button{
+    width: 100%;
+}
+
+.container .therms-conditions, .container .have-account {
+    margin: 10px 0px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}

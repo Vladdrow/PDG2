@@ -15,10 +15,10 @@ import {
 import User from "../models/User.js";
 
 export const registerUser = async (user) => {
-    if (!user.isPasswordValid(user.password)) {
+    if (!user.isPasswordValid()) {
         throw new Error("Contraseña no válida");
     }
-    if (!user.passwordsMatch(user.password, user.confirmPassword)) {
+    if (!user.passwordsMatch()) {
         throw new Error("Las contraseñas no coinciden");
     }
     await user.setHashedPassword(user.password);

@@ -1,28 +1,29 @@
 import { useState, useEffect } from "react";
-import Header from "../components/Header/Header";
-import Footer from "../components/Footer/Footer";
+import { Link } from "react-router-dom";
+import Header from "../../components/Header/Header";
+import Footer from "../../components/Footer/Footer";
 
-import "../assets/css/desktop/pages/home.css";
+import "../../assets/css/desktop/pages/home.css";
 
-import LogoVer from "../assets/img/logos/logo-ver.jpg";
+import LogoVer from "../../assets/img/logos/logo-ver.jpg";
 /* import LogoHor from "../assets/img/logos/logo-hor.jpg"; */
-import Guide from "../assets/resources/guia-logistica-2023.jpg";
-import LogoPrueba from "../assets/img/logos/logo-prueba.jpg";
-import LogoUser from "../assets/img/logos/logo-user.png";
-import Facebook from "../assets/img/socialNetworks/logo_facebook.png";
-import Instagram from "../assets/img/socialNetworks/logo_instagram.png";
+import Guide from "../../assets/resources/guia-logistica-2023.jpg";
+import LogoPrueba from "../../assets/img/logos/logo-prueba.jpg";
+import LogoUser from "../../assets/img/logos/logo-user.png";
+import Facebook from "../../assets/img/socialNetworks/logo_facebook.png";
+import Instagram from "../../assets/img/socialNetworks/logo_instagram.png";
 
-import Contenedor from "../assets/resources/secciones/contenedor.png";
-import Engranaje from "../assets/resources/secciones/engranaje.png";
-import ImgUser from "../assets/resources/members/logo-user.png";
+import Contenedor from "../../assets/resources/secciones/contenedor.png";
+import Engranaje from "../../assets/resources/secciones/engranaje.png";
+import ImgUser from "../../assets/resources/members/logo-user.png";
 
-import ImgCarousel from "../components/Body/components/ImgCarousel";
-import GuidesCarousel from "../components/Body/components/GuidesCarousel";
-import TitleH2 from "../components/Global/TitleH2";
-import ImageSections from "../components/Body/components/ImageSections";
-import TeamMember from "../components/Body/components/TeamMember";
-import B_ImageInfo from "../components/Body/components/B_ImageInfo";
-import B_DescriptionInfo from "../components/Body/components/B_DescriptionInfo";
+import ImgCarousel from "../../components/Body/components/ImgCarousel";
+import GuidesCarousel from "../../components/Body/components/GuidesCarousel";
+import TitleH2 from "../../components/Global/TitleH2";
+import ImageSections from "../../components/Body/components/ImageSections";
+import TeamMember from "../../components/Body/components/TeamMember";
+import B_ImageInfo from "../../components/Body/components/B_ImageInfo";
+import B_DescriptionInfo from "../../components/Body/components/B_DescriptionInfo";
 
 function Home() {
     const [selectedImage, setSelectedImage] = useState(null);
@@ -212,6 +213,7 @@ function Home() {
         <>
             <Header User={User} Pages={NewUserPages} />
             <main id="home">
+            {/* <Link to="/dashboard">Redirect Home</Link> */}
                 <section id="guide-year-section">
                     <article className="article-guide">
                         <B_ImageInfo src={guide_info.src} />

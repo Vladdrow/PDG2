@@ -17,10 +17,10 @@ export const AuthProvider = ({ children }) => {
         // Establecer propiedades de la instancia
         userInstance.setNombreCompleto(
             userData.Nombre,
-            userData.ApellidoPaterno + " " + userData.ApellidoMaterno
+            `${userData.ApellidoPaterno} ${userData.ApellidoMaterno}`
         );
-        userInstance.setIsEditor(userData.TipoUsuario === "1");
-        userInstance.setIsPremium(userData.isPremium);
+        userInstance.setIsEditor(userData.IsEditor);
+        userInstance.setIsPremium(userData.IsPremium);
         userInstance.fechaRegistro = userData.FechaRegistro;
         userInstance.fechaUltimoAcceso = userData.FechaUltimoAcceso;
 

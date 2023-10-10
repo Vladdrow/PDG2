@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-import "../assets/css/desktop/pages/register.css";
+import "../../assets/css/desktop/pages/register.css";
 /* Frontend */
-import UserRegistration from "../models/UserRegistration";
+import UserRegistration from "../../models/UserRegistration";
 /* Recursos */
-import Logistica from "../assets/resources/pages/register/logistica2.jpg";
+import Logistica from "../../assets/resources/pages/register/logistica2.jpg";
 /* Components */
-import B_FormWelcome from "../components/Body/components/B_FormWelcome";
-import LoadingOverlay from "../components/Global/LoadingOverlay";
+import B_FormWelcome from "../../components/Body/components/B_FormWelcome";
+import LoadingOverlay from "../../components/Global/LoadingOverlay";
 
-import { register } from "../api/auth.api";
+import { register } from "../../api/auth.api";
 const Register = () => {
     const [formData, setFormData] = useState({
         firstName: "",
@@ -20,6 +20,7 @@ const Register = () => {
         confirmPassword: "",
     });
     const [loading, setLoading] = useState(false);
+    const [answerRegister, setRegister] = useState("");
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -54,9 +55,11 @@ const Register = () => {
         try {
             const response = await register(userData);
             console.log("Registro exitoso:", response.data);
+            setRegister(response.data);
             /* console.log(user); */
         } catch (error) {
             console.error("Error en el registro:", error);
+            setRegister(error.response.data);
             user = null;
         } finally {
             setLoading(false);
@@ -175,6 +178,9 @@ const Register = () => {
                                 <a href="#">Terminos y condiciones</a>
                             </p>
                         </div> */}
+                        {answerRegister && (
+                            <div className="alert alert-success">{answerRegister}</div>
+                        )}
                         <div className="btn-contain">
                             <button
                                 type="submit"

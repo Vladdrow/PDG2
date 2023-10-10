@@ -26,28 +26,28 @@ class User {
         this.isEditor = esEditor ? true : false;
     }
 
-    passwordsMatch(password, confirmPassword) {
-        return password === confirmPassword;
+    passwordsMatch() {
+        return this.password === this.confirmPassword;
     }
 
-    isPasswordValid(password) {
+    isPasswordValid() {
         // La contraseña debe tener al menos 8 caracteres.
-        if (password.length < 8) {
+        if (this.password.length < 8) {
             return false;
         }
 
         // Debe contener al menos una letra mayúscula y una minúscula.
-        if (!/[a-z]/.test(password) || !/[A-Z]/.test(password)) {
+        if (!/[a-z]/.test(this.password) || !/[A-Z]/.test(this.password)) {
             return false;
         }
 
         // Debe incluir al menos un número.
-        if (!/\d/.test(password)) {
+        if (!/\d/.test(this.password)) {
             return false;
         }
 
         // Puede contener caracteres especiales como !, @, #, $, etc.
-        if (!/[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]/.test(password)) {
+        if (!/[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]/.test(this.password)) {
             return false;
         }
 

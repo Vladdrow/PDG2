@@ -1,24 +1,24 @@
 import React from "react";
 /* Style */
-import "../assets/css/desktop/pages/dashboard.css";
+import "../../assets/css/desktop/pages/dashboard.css";
 
 /* Resources */
-import LogoVer from "../assets/img/logos/logo-ver.jpg";
-import LogoHor from "../assets/img/logos/logo-hor.jpg";
+import LogoVer from "../../assets/img/logos/logo-ver.jpg";
+/* import LogoHor from "../assets/img/logos/logo-hor.jpg"; */
 
-import LogoGourmet from "../assets/img/logos/logo-gourmet.png";
-import LogoLogistica from "../assets/img/logos/logo-logistica.png";
-import LogoPrueba from "../assets/img/logos/logo-prueba.jpg";
-import LeftCircle from "../assets/svg/left-circle.svg";
-import RightCircle from "../assets/svg/right-circle.svg";
-import LogoUser from "../assets/img/logos/logo-user.png";
+import LogoGourmet from "../../assets/img/logos/logo-gourmet.png";
+import LogoLogistica from "../../assets/img/logos/logo-logistica.png";
+import LogoPrueba from "../../assets/img/logos/logo-prueba.jpg";
+import LeftCircle from "../../assets/svg/left-circle.svg";
+import RightCircle from "../../assets/svg/right-circle.svg";
+import LogoUser from "../../assets/img/logos/logo-user.png";
 
 /* Components */
-import LogoAdsSection from "../components/Body/components/LogoAdsSection";
-import AdsBox from "../components/Body/components/AdsBox";
-import Header from "../components/Header/Header";
-import SearchBar from "../components/Global/SearchBar";
-import ImgCarousel from "../components/Body/components/ImgCarousel";
+import LogoAdsSection from "../../components/Body/components/LogoAdsSection";
+import AdsBox from "../../components/Body/components/AdsBox";
+import Header from "../../components/Header/Header";
+import SearchBar from "../../components/Global/SearchBar";
+import ImgCarousel from "../../components/Body/components/ImgCarousel";
 
 function Dashboard() {
     const User = [

@@ -1,0 +1,41 @@
+.slider-container-guides {
+    max-width: 1200px; /* Anchura máxima de 900px */
+    margin: 0 auto; /* Centrar horizontalmente */
+}
+
+.slider-container-guides .slider-element {
+    text-align: center;
+}
+
+/* Estilos adicionales para las flechas de navegación (si las deseas) */
+.slick-arrow {
+    font-size: 24px; /* Tamaño de fuente de las flechas */
+    color: #333; /* Color de las flechas */
+}
+.guides-container {
+    max-width: 350px;
+    height: 450px;
+    margin: 10px;
+    transition: transform 0.2s ease; /* Agrega una transición para suavizar el efecto */
+}
+
+.guides-container:hover {
+    transform: scale(1.05); /* Aumenta ligeramente el tamaño al hacer hover */
+}
+
+.guides-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* Estilo para la flecha anterior (izquierda) */
+.slick-prev::before {
+    font-size: 40px !important; /* Alinea el botón izquierdo a la izquierda y lo aleja un poco más */
+}
+
+/* Estilo para la flecha siguiente (derecha) */
+.slick-next:before {
+    font-size: 40px !important; /* Alinea el botón derecho a la derecha y lo aleja un poco más */
+}

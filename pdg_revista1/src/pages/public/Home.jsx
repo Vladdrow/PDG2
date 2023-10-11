@@ -4,6 +4,7 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 
 import "../../assets/css/desktop/pages/home.css";
+import { getHomePageData } from "../../api/auth.api";
 
 import LogoVer from "../../assets/img/logos/logo-ver.jpg";
 /* import LogoHor from "../assets/img/logos/logo-hor.jpg"; */
@@ -17,26 +18,53 @@ import Contenedor from "../../assets/resources/secciones/contenedor.png";
 import Engranaje from "../../assets/resources/secciones/engranaje.png";
 import ImgUser from "../../assets/resources/members/logo-user.png";
 
-import ImgCarousel from "../../components/Body/components/ImgCarousel";
-import GuidesCarousel from "../../components/Body/components/GuidesCarousel";
+import ImgCarousel from "../../components/Card/ImgCarousel";
+import GuidesCarousel from "../../components/Card/GuidesCarousel";
 import TitleH2 from "../../components/Global/TitleH2";
-import ImageSections from "../../components/Body/components/ImageSections";
+import ImageSections from "../../components/Card/ImageSections";
 import TeamMember from "../../components/Body/components/TeamMember";
 import B_ImageInfo from "../../components/Body/components/B_ImageInfo";
 import B_DescriptionInfo from "../../components/Body/components/B_DescriptionInfo";
 
 function Home() {
     const [selectedImage, setSelectedImage] = useState(null);
+
+    const [guideInfoDB, setGuideInfo] = useState({});
+    const [companiesImgDB, setCompaniesImg] = useState([]);
+    const [imgSectionsDB, setImgSections] = useState([]);
+    const [teamMembersDB, setTeamMembers] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await getHomePageData();
+                const data = response.data;
+                console.log("response: ", response);
+                console.log("data: ", data);
+
+                /*             setGuideInfo(data.guideInfo);
+            setCompaniesImg(data.imageLinks);
+            setImgSections(data.imgSections);
+            setTeamMembers(data.teamMembers); */
+                // ... establece otros estados según sea necesario
+            } catch (error) {
+                console.error("Hubo un error al obtener los datos:", error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
     const User = {
-        ID: "12345",  // ID único del usuario
-        CorreoElectronico: "usuario@ejemplo.com",  // Correo electrónico del usuario
-        Nombre: "Juan",  // Primer nombre del usuario
-        Apellido: "Valencia",  // Apellido del usuario (para simplificar, lo hemos dejado como un solo campo, pero puedes dividirlo en ApellidoPaterno y ApellidoMaterno si lo prefieres)
-        IsEditor: false,  // Indica si el usuario es un editor
-        IsPremium: true,  // Indica si el usuario tiene una suscripción premium
-        FechaRegistro: "2023-01-01",  // Fecha de registro del usuario
-        FechaUltimoAcceso: "2023-09-01",  // Última fecha de acceso del usuario
-        photoURL: ImgUser // URL de la foto del perfil del usuario
+        ID: "12345", // ID único del usuario
+        CorreoElectronico: "usuario@ejemplo.com", // Correo electrónico del usuario
+        Nombre: "Juan", // Primer nombre del usuario
+        Apellido: "Valencia", // Apellido del usuario (para simplificar, lo hemos dejado como un solo campo, pero puedes dividirlo en ApellidoPaterno y ApellidoMaterno si lo prefieres)
+        IsEditor: false, // Indica si el usuario es un editor
+        IsPremium: true, // Indica si el usuario tiene una suscripción premium
+        FechaRegistro: "2023-01-01", // Fecha de registro del usuario
+        FechaUltimoAcceso: "2023-09-01", // Última fecha de acceso del usuario
+        photoURL: ImgUser, // URL de la foto del perfil del usuario
     };
     const NavLinks = [
         {
@@ -138,48 +166,56 @@ function Home() {
             src: Contenedor,
             alt: "Img1",
             desc: "Description1",
+            link: "#",
         },
         {
             name: "Sec2",
             src: Engranaje,
             alt: "Img2",
             desc: "Description2",
+            link: "#",
         },
         {
             name: "Sec3",
             src: Contenedor,
             alt: "Img3",
             desc: "Description3",
+            link: "#",
         },
         {
             name: "Sec4",
             src: Engranaje,
             alt: "Img4",
             desc: "Description4",
+            link: "#",
         },
         {
             name: "Sec5",
             src: Contenedor,
             alt: "Img5",
             desc: "Description5",
+            link: "#",
         },
         {
             name: "Sec6",
             src: Engranaje,
             alt: "Img6",
             desc: "Description6",
+            link: "#",
         },
         {
             name: "Sec7",
             src: Contenedor,
             alt: "Img7",
             desc: "Description7",
+            link: "#",
         },
         {
             name: "Sec8",
             src: Engranaje,
             alt: "Img8",
             desc: "Description8",
+            link: "#",
         },
     ];
 
@@ -216,12 +252,14 @@ function Home() {
     };
     return (
         <>
-            <Header Pages={NewUserPages} user={User}/>
+            <Header Pages={NewUserPages} /* user={User} */ />
             <main id="home">
-            {/* <Link to="/dashboard">Redirect Home</Link> */}
                 <section id="guide-year-section">
                     <article className="article-guide">
-                        <B_ImageInfo src={guide_info.src} />
+                        <B_ImageInfo
+                            link={guide_info.link}
+                            src={guide_info.src}
+                        />
                         <B_DescriptionInfo
                             title={guide_info.name}
                             description={guide_info.description}
@@ -239,10 +277,6 @@ function Home() {
                     </div>
                     <ImgCarousel images={imageLinks} />
                 </section>
-                {/* <section className="sects-home other-guide-books">
-                    <h2>OTHER GUIDES</h2>
-                    <GuidesCarousel itemsPerSlide={3} images={images2} />
-                </section> */}
                 <section id="guide-sections">
                     <article className="sects-home guide-sects">
                         <div className="title-sections">
@@ -272,6 +306,11 @@ function Home() {
                             buttonText="Explorar"
                         />
                         <B_ImageInfo
+                            link={
+                                selectedImage
+                                    ? selectedImage.link
+                                    : ImgSections[0].link
+                            }
                             src={
                                 selectedImage
                                     ? selectedImage.src
@@ -307,3 +346,10 @@ function Home() {
 }
 
 export default Home;
+
+{
+    /* <section className="sects-home other-guide-books">
+                    <h2>OTHER GUIDES</h2>
+                    <GuidesCarousel itemsPerSlide={3} images={images2} />
+                </section> */
+}

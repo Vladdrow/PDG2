@@ -1,0 +1,30 @@
+.team-member {
+    width: 33.33%; /* Para mostrar 3 elementos por fila */
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    
+}
+.cont-1-team {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 140px;
+    margin-bottom: 20px;
+}
+.photo-pers {
+    background-color: #ffb9b9;
+    border-radius: 50%;
+    width: 140px;
+}
+
+.name-pers {
+    width: 60%;
+    display: flex;
+    align-items: center;
+}
+.desc-pers {
+    margin-top: 20px;
+    text-align: center;
+    width: 100%;
+    padding: 0px 20px;
+}

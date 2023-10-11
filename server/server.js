@@ -5,8 +5,8 @@ import config from "./config.js";
 import cookieParser from 'cookie-parser';
 
 
-import routerReader from "./routes/reader.routes.js";
-import routerEditor from "./routes/editor.routes.js";
+/* import routerReader from "./routes/reader.routes.js";
+import routerEditor from "./routes/editor.routes.js"; */
 import routerAuth from "./routes/auth.routes.js";
 import dotenv from 'dotenv';
 dotenv.config();
@@ -18,8 +18,8 @@ app.use(
 ); /* Procesar los datos del cliente, si es json lo recibe */
 
 app.use(routerAuth);
-app.use(routerReader);
-app.use(routerEditor);
+/* app.use(routerReader);
+app.use(routerEditor); */
 app.use(cookieParser());
 
 app.listen(port, () => {

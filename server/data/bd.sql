@@ -1,7 +1,8 @@
 -- Active: 1696876348843@@127.0.0.1@3306@pdg_revista
+
 SHOW DATABASES;
 
-CREATE DATABASE Guia_Empresarial;
+CREATE DATABASE Guia_Empresarial_1;
 
 DROP DATABASE Guia_Empresarial;
 
@@ -10,13 +11,31 @@ SHOW TABLES;
 SHOW VARIABLES;
 
 SELECT Host, User FROM mysql.user WHERE User = 'root';
+
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
+
 FLUSH PRIVILEGES;
+
 SELECT * FROM `Usuario`;
+
 SELECT * FROM `Lector`;
+
 SELECT * FROM `Llave_Lector`;
+
 SELECT * FROM `Llave_Valida`;
-USE Guia_Empresarial;
+
+USE Guia_Empresarial_1;
+
+--  Tablas para el sitio web
+
+CREATE TABLE
+    Libro (
+        ID INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+        Titulo VARCHAR(255) NOT NULL,
+        Descripcion TEXT NOT NULL,
+        RutaImagen VARCHAR(255) NOT NULL,
+        UrlLibro VARCHAR(255) NOT NULL
+    );
 
 -- 1. Usuario
 
@@ -26,15 +45,11 @@ CREATE TABLE
         CorreoElectronico VARCHAR(255) UNIQUE,
         Contrasena VARCHAR(255),
         Salt VARCHAR(255) NULL,
-        TipoUsuario ENUM('1', '2') DEFAULT '2',
-        -- ('Editor', 'Lector') por defecto Lector
+        TipoUsuario ENUM('1', '2') DEFAULT '2', -- ('Editor', 'Lector') por defecto Lector
         IntentosFallidos INT DEFAULT 0,
-        BloqueoTemporal DATETIME NULL DEFAULT NULL,
-        -- Fecha y hora hasta la cual el usuario está bloqueado
-        TokenRestablecimiento VARCHAR(255) NULL,
-        -- Token para restablecer contraseña
-        ExpiracionTokenRestablecimiento DATETIME NULL DEFAULT NULL,
-        -- Fecha de caducidad del token de restablecimiento
+        BloqueoTemporal DATETIME NULL DEFAULT NULL, -- Fecha y hora hasta la cual el usuario está bloqueado
+        TokenRestablecimiento VARCHAR(255) NULL, -- Token para restablecer contraseña
+        ExpiracionTokenRestablecimiento DATETIME NULL DEFAULT NULL, -- Fecha de caducidad del token de restablecimiento
         FechaRegistro DATETIME,
         FechaUltimoAcceso DATETIME NULL DEFAULT NULL,
         INDEX (CorreoElectronico)
@@ -49,7 +64,9 @@ CREATE TABLE
         Nombre VARCHAR(100),
         ApellidoPaterno VARCHAR(100),
         ApellidoMaterno VARCHAR(100),
-        Descripcion TEXT,
+        RutaImagen VARCHAR(255) NULL,
+        Rol VARCHAR(100) NOT NULL,
+        Descripcion TEXT NULL,
         FOREIGN KEY (UsuarioID) REFERENCES Usuario(ID)
     );
 
@@ -62,6 +79,7 @@ CREATE TABLE
         Nombre VARCHAR(100),
         ApellidoPaterno VARCHAR(100),
         ApellidoMaterno VARCHAR(100),
+        RutaImagen VARCHAR(255) NULL,
         FOREIGN KEY (UsuarioID) REFERENCES Usuario(ID)
     );
 
@@ -110,7 +128,7 @@ CREATE TABLE
         EmpresaID INT UNSIGNED,
         TipoRedSocial ENUM('1', '2', '3', '4'),
         /* ENUM('Facebook', 'Twitter', 'Instagram', 'LinkedIn') */
-        URL VARCHAR(255),
+        UrlRedSocial VARCHAR(255),
         FOREIGN KEY (EmpresaID) REFERENCES Empresa(ID)
     );
 
@@ -320,7 +338,7 @@ CREATE TABLE
         TipoArchivo ENUM('1', '2', '3', '4', '5'),
         /* ENUM('Imagen', 'Documento', 'Video', 'Audio', 'PDF') */
         NombreArchivo VARCHAR(255),
-        URLArchivo VARCHAR(255),
+        RutaArchivo VARCHAR(255),
         FechaSubida DATE,
         FOREIGN KEY (EmpresaID) REFERENCES Empresa(ID)
     );

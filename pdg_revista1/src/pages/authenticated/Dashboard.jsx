@@ -18,7 +18,7 @@ import LogoAdsSection from "../../components/Body/components/LogoAdsSection";
 import AdsBox from "../../components/Body/components/AdsBox";
 import Header from "../../components/Header/Header";
 import SearchBar from "../../components/Global/SearchBar";
-import ImgCarousel from "../../components/Body/components/ImgCarousel";
+import ImgCarousel from "../../components/Card/ImgCarousel";
 
 function Dashboard() {
     const User = [

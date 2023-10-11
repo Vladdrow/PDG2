@@ -1,5 +1,6 @@
 import React from "react";
 
+import "../../../assets/css/desktop/components/teammember.css"
 function TeamMember({ photoSrc, name, description }) {
     return (
         <article className="team-member">

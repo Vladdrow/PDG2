@@ -6,6 +6,6 @@ export default {
         port: 3306,
         user: 'root',
         password: '',/* 'revista', */
-        database: 'Guia_Empresarial',
+        database: 'Guia_Empresarial_1',
     },
 };

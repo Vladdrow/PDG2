@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 
-import Contenedor from "../../../assets/resources/secciones/contenedor.png";
-import Engranaje from "../../../assets/resources/secciones/engranaje.png";
+import CarouselDots from "./CarouselDots";
+import "../../assets/css/desktop/components/imagesections.css"
+/* import Contenedor from "../../../assets/resources/secciones/contenedor.png";
+import Engranaje from "../../../assets/resources/secciones/engranaje.png"; */
 
 function ImageSections({ images, onSelectImage }) {
     const itemsPerGroup = 6;
@@ -18,8 +20,6 @@ function ImageSections({ images, onSelectImage }) {
 
     return (
         <div className="img-sections">
-            {" "}
-            {/* "img-sections-gs" */}
             <div
                 className="carousel-container-gs"
                 style={{ transform: `translateX(-${activeGroup * 100}%)` }}
@@ -53,19 +53,11 @@ function ImageSections({ images, onSelectImage }) {
                         </div>
                     ))}
             </div>
-            <div className="carousel-dots">
-                {Array(groups)
-                    .fill(0)
-                    .map((_, idx) => (
-                        <span
-                            key={idx}
-                            className={`dot ${
-                                idx === activeGroup ? "active" : ""
-                            }`}
-                            onClick={() => setActiveGroup(idx)}
-                        ></span>
-                    ))}
-            </div>
+            <CarouselDots
+                items={Array(groups).fill(0)}
+                activeIndex={activeGroup}
+                setActiveIndex={setActiveGroup}
+            />
         </div>
     );
 }

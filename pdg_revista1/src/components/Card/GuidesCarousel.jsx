@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import Slider from "react-slick";
 
-import Logo from "../../../assets/img/logos/logo-prueba.jpg";
+/* import Logo from "../../../assets/img/logos/logo-prueba.jpg"; */
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import "../../assets/css/desktop/components/guidescarousel.css"
 
 const GuidesCarousel = ({ itemsPerSlide, images }) => {
     const showArrows = images.length > 3;
@@ -17,7 +18,7 @@ const GuidesCarousel = ({ itemsPerSlide, images }) => {
     };
 
     return (
-        <div className="slider-container">
+        <div className="slider-container-guides">
             <Slider {...settings} className="slider-element">
                 {images.map((image, index) => (
                     <div key={index} className="guides-container">

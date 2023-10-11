@@ -1,7 +1,7 @@
 /* Components */
 import LogoBox from "./LogoBox";
 import AdsBox from "./AdsBox";
-import ImgCarousel from "../../Body/components/ImgCarousel";
+import ImgCarousel from "../../Card/ImgCarousel";
 
 
 

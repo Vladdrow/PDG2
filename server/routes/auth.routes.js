@@ -1,12 +1,11 @@
 import { Router } from "express";
-import pool from "../db.js";
 
 import {
     register,
     login,
     logout,
     confirmPaymentAndGenerateKey,
-    verifyToken
+    /* verifyToken */
 } from "../controllers/auth.controllers.js";
 
 const router = Router();

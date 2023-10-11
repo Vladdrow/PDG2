@@ -2,7 +2,7 @@ import {
     registerUser as registerUserService,
     loginUser as loginUserService,
     confirmPaymentAndGenerateKey as confirmPay,
-} from "../services/auth.services.js";
+} from "../services/auth.service.js";
 import User from "../models/User.js";
 export const register = async (req, res) => {
     const {

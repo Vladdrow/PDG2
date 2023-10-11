@@ -2,6 +2,7 @@ import React from "react";
 
 import LogoContacto from "../../assets/img/logos/logo-revista.png";
 import { Link } from "react-router-dom";
+import "./footer.css"
 
 function Footer({ socialLinks, navLinks }) {
     return (

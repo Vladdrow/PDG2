@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 
-import RowLeft from "../../../assets/svg/left-circle.svg"
-import RowRight from "../../../assets/svg/right-circle.svg"
- 
+import RowLeft from "../../assets/svg/left-circle.svg";
+import RowRight from "../../assets/svg/right-circle.svg";
+
+import CarouselDots from "./CarouselDots";
+import "../../assets/css/desktop/components/imgcarousel.css"
+
 const ImgCarousel = ({ images }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -47,21 +50,14 @@ const ImgCarousel = ({ images }) => {
                     ></a>
                 ))}
                 <button className="carousel-button next" onClick={nextSlide}>
-                <img src={RowRight} alt="" />
+                    <img src={RowRight} alt="" />
                 </button>
-
             </div>
-            <div className="carousel-dots">
-                {images.map((_, index) => (
-                    <span
-                        key={index}
-                        className={`dot ${
-                            index === currentIndex ? "active" : ""
-                        }`}
-                        onClick={() => setCurrentIndex(index)}
-                    ></span>
-                ))}
-            </div>
+            <CarouselDots
+                items={images}
+                activeIndex={currentIndex}
+                setActiveIndex={setCurrentIndex}
+            />
         </div>
     );
 };

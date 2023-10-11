@@ -13,6 +13,10 @@ import {
     isValidUserKey,
 } from "../data/auth.data.js";
 import User from "../models/User.js";
+import jwt from "jsonwebtoken";
+import config from "../config.js";
+
+const JWT_SECRET_STR = config.jwtSecret;
 
 export const registerUser = async (user) => {
     if (!user.isPasswordValid()) {
@@ -64,8 +68,20 @@ export const loginUser = async (correo, contrasena) => {
             userFromDb.TipoUsuario
         );
         const llaveValida = await hasValidKey(user.id);
+        const userPayload = {
+            id: userFromDb.ID,
+            name: additionalUserInfo.Nombre,
+            userType: userFromDb.TipoUsuario,
+        };
 
-        return buildFullUserInfo(dataUser, additionalUserInfo, llaveValida);
+        const token = jwt.sign(userPayload, JWT_SECRET_STR, { expiresIn: "1h" }); // El token expira en 1 hora
+
+        return buildFullUserInfo(
+            dataUser,
+            additionalUserInfo,
+            llaveValida,
+            token
+        ); // Agregamos el token a la respuesta
     } else {
         incrementFailedAttempts(user.id);
         return { success: false, message: "Contraseña incorrecta" };
@@ -116,7 +132,7 @@ export const confirmPaymentAndGenerateKey = async (userId) => {
     }
 };
 
-const buildFullUserInfo = (dataUser, additionalUserInfo, isPremium) => {
+const buildFullUserInfo = (dataUser, additionalUserInfo, isPremium, token) => {
     const fullUserInfo = {
         ID: dataUser.ID,
         CorreoElectronico: dataUser.CorreoElectronico,
@@ -132,6 +148,7 @@ const buildFullUserInfo = (dataUser, additionalUserInfo, isPremium) => {
         success: true,
         message: "Inicio de sesión exitoso",
         userDataDB: fullUserInfo,
+        token: token,
     };
 };
 

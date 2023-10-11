@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { login as loginUser } from "../../api/auth.api";
 import "../../assets/css/desktop/pages/login.css";
 
@@ -13,7 +13,8 @@ import LoadingOverlay from "../../components/Global/LoadingOverlay";
 import moment from "moment-timezone";
 
 function Login() {
-    const { login: loginAuth, user: userAuth } = useAuth(); 
+    const navigate = useNavigate();
+    const { login: loginAuth, user: userAuth } = useAuth();
     /*"De useAuth(), extrae la propiedad login y 
     asígnala a una nueva variable llamada loginAuth". */
     const [formData, setFormData] = useState({
@@ -43,6 +44,7 @@ function Login() {
             if (response.data.success) {
                 loginAuth(response.data.userDataDB);
                 /* console.log("Success: ", userAuth); */
+                navigate("/auth/dashboard");
             }
             console.log(response.data.message);
             // Por ejemplo: redirigir al dashboard
@@ -131,7 +133,7 @@ function Login() {
                         <a href="#">¿Olvidaste tu contraseña?</a>
                     </div>
                 </section>
-                <Link to="/dashboard">Redirect Home</Link>
+                <Link to="/auth/dashboard">Redirect Home</Link>
             </div>
         </main>
     );

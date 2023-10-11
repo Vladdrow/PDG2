@@ -25,13 +25,6 @@ router.get("/contact", (req, res) => {
     // Acción para mostrar la página de contacto para nuevos usuarios
 });
 
-/* router.get("/register", (req, res) => {
-    // Acción para mostrar la página de registro para nuevos usuarios
-}); */
-
-/* router.get("/login", (req, res) => {
-    // Acción para mostrar la página de inicio de sesión para nuevos usuarios
-}); */
 
 // Define las rutas para Usuarios Registrados
 router.get("/profile", (req, res) => {

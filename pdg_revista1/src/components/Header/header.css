@@ -1,0 +1,145 @@
+.site-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+    background-color: #f7f7f7;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.site-logo {
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.site-logo:hover {
+    transform: scale(1.1);
+}
+
+.site-nav {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #333;
+    transition: color 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+}
+
+.nav-link:hover {
+    color: #007bff;  /* Color de enlace activo de Bootstrap */
+}
+
+/* USER INFORMATION */
+.user-info {
+    min-width: 185px;
+    max-width: 200px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    position: relative;  /* Esto es necesario para que el .dropdown-content se posicione correctamente */
+    background-color: #e6e6e6; /* Un poco más oscuro que el fondo del header */
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.user-photo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    /* border: 2px solid #007bff; */ /* Color de enlace activo de Bootstrap */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    position: relative; /* Necesario para posicionar la notificación */
+}
+
+/* Estilo para la notificación */
+.notification-count {
+    position: absolute; /* Esto permite posicionar el círculo respecto al contenedor .user-info */
+    top: -5px; /* Posiciona el círculo un poco por encima del icono o imagen del usuario */
+    right: -5px; /* Posiciona el círculo a la derecha del icono o imagen del usuario */
+    background-color: red;
+    color: white;
+    border-radius: 50%; /* Esto hace que el div sea un círculo */
+    width: 20px; /* Define el tamaño del círculo, ajústalo según tus necesidades */
+    height: 20px;
+    display: flex; /* Los siguientes tres estilos centran el número dentro del círculo */
+    justify-content: center;
+    align-items: center;
+    font-size: 12px; /* Tamaño de fuente para el número */
+    font-weight: bold; /* Hace que el número sea negrita */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Agrega una sombra suave para hacer que el círculo resalte más */
+}
+
+.dropbtn {
+    background-color: transparent;
+    color: inherit;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;  /* Evitar que el contenido se divida en múltiples líneas */
+    padding: 0;
+    outline: none;  /* Quitar el contorno al hacer clic en el botón */
+    transition: color 0.2s ease-in-out;
+    z-index: inherit;
+}
+
+.dropbtn:hover {
+    color: #ff0000;  /* Color de enlace activo de Bootstrap */
+    /* background-color: #e6e6e6; */
+}
+
+.dropdown {
+    width: 100%;
+    position: relative;
+    display: inline-block;
+}
+
+/* FLECHA */
+.dropdown-arrow {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #333; /* Este es el color del triángulo, ajústalo según tus necesidades */
+    margin-left: 5px; /* Espaciado entre el nombre del usuario y el ícono */
+    display: inline-block;
+    transition: transform 0.3s ease-in-out;
+    transform: rotate(180deg); /* Esta transformación hará que el triángulo apunte hacia arriba cuando pases el mouse sobre el nombre del usuario */
+}
+.dropdown-arrow.rotated {
+    transform: rotate(0deg); /* Esta transformación hará que el triángulo apunte hacia arriba cuando el menú esté abierto */
+}
+/*  */
+
+
+.dropdown-content {
+    position: absolute;
+    right: 0;  /* Alinear a la derecha */
+    top: 130%;  /* Justo debajo del botón */
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-top-left-radius: 4px;  /* Redondear esquinas superiores */
+    border-top-right-radius: 4px;
+    max-width: 100vw;  /* Asegurar que no exceda el ancho de la ventana */
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}

@@ -1,6 +1,6 @@
 import { Routes, Route, useLocation } from "react-router-dom";
-import ProtectedRoute from "./components/Security/ProtectedRoute";
 import { useAuth } from "./context/AuthContext";
+import ProtectedRoute from "./components/Security/ProtectedRoute";
 /* Style */
 import "./App.css";
 /* Pages */
@@ -19,32 +19,33 @@ function App() {
             <Routes>
                 {/* Rutas para todos */}
                 <Route path="/" element={<Home />} />
-                {/* <Route path="/explore" element={<Explore />} /> */}
-                {/* <Route path="/about" element={<About />} /> */}
-                {/* <Route path="/contact" element={<Contact />} /> */}
+                {/* <Route path="/explore" element={<Explore />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/contact" element={<Contact />} /> */}
                 <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login />} />
 
                 {/* Rutas protegidas para usuarios autenticados */}
-                <Route element={<ProtectedRoute isAllowed={isAuthenticated} redirectTo="/login"/>}>
-                    {/* <Route path="/profile" element={<Profile />} /> */}
-                    {/* <Route path="/subscribe" element={<Subscribe />} /> */}
-                    {/* <Route path="/notifications" element={<Notifications />} /> */}
-                    {/* <Route path="/logout" element={<Logout />} /> */}
-                    <Route path="/dashboard" element={<Dashboard />} />  {/* Accesible para usuarios premium y editores */}
+                <Route path="/auth" element={<ProtectedRoute isAllowed={isAuthenticated || !!user && user.isEditor} redirectTo="/login"/>}>
+                    {/* <Route path="/profile" element={<Profile />} />
+                    <Route path="/subscribe" element={<Subscribe />} />
+                    <Route path="/notifications" element={<Notifications />} />
+                    <Route path="/logout" element={<Logout />} /> */}
+                    <Route path="dashboard" element={<Dashboard />} />
 
                     {/* Rutas protegidas para usuarios premium */}
-                    <Route element={<ProtectedRoute isAllowed={!!user && user.isPremium} redirectTo="/subscribe"/>}>
-                        {/* <Route path="/premium-content" element={<PremiumContent />}  />*/} {/* Para rellenar, no se que colocar */}
+                    <Route element={<ProtectedRoute isAllowed={!!user && user.isPremium || !!user && user.isEditor} redirectTo="/subscribe"/>}>
+                        {/* <Route path="/premium-content" element={<PremiumContent />} /> */}
+                        {/* <div><h2>Soy premium</h2></div> */}
                     </Route>
 
                     {/* Rutas protegidas para editores */}
-                    <Route element={<ProtectedRoute isAllowed={!!user && user.isEditor} redirectTo="/login"/>}>
-                        {/* <Route path="/editor" element={<Editor />} /> */}
-                        {/* <Route path="/manage-companies" element={<ManageCompanies />} /> */}
-                        {/* <Route path="/publish-notifications" element={<PublishNotifications />} /> */}
-                        {/* <Route path="/manage-content" element={<ManageContent />} /> */}
-                        {/* <Route path="/statistics" element={<Statistics />} /> */}
+                    <Route path="editor" /* element={<ProtectedRoute isAllowed={!!user && user.isEditor} redirectTo="/login"/>} */>
+                        {/* <Route path="/manage-companies" element={<ManageCompanies />} />
+                        <Route path="/publish-notifications" element={<PublishNotifications />} />
+                        <Route path="/manage-content" element={<ManageContent />} />
+                        <Route path="/statistics" element={<Statistics />} /> */}
+                        <Route path="show" element={<div><h2>soy Editor</h2></div>} />
                     </Route>
                 </Route>
             </Routes>

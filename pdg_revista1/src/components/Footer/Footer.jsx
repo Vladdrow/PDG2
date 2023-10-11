@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 function Footer({ socialLinks, navLinks }) {
     return (
-        <footer id="ft-home">
+        <footer id="footer">
             <section className="magazine-name">
                 <div className="img-lg-ft">
                     <Link to="/"><img src={LogoContacto} alt="Magazine name" /> </Link>

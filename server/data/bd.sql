@@ -12,26 +12,10 @@ SHOW VARIABLES;
 SELECT Host, User FROM mysql.user WHERE User = 'root';
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
-
-SELECT * FROM Usuario;
+SELECT * FROM `Usuario`;
 SELECT * FROM `Lector`;
 SELECT * FROM `Llave_Lector`;
 SELECT * FROM `Llave_Valida`;
-ALTER TABLE `Llave_Lector` MODIFY FechaCreacion DATETIME;
-ALTER TABLE `Llave_Valida` MODIFY Fecha DATETIME;
-
-
-SET GLOBAL time_zone = 'America/La_Paz';
-SET GLOBAL time_zone = '+00:00';
-
-SET GLOBAL time_zone = 'UTC';
-
-SET GLOBAL time_zone = 'SYSTEM';
-
-SET time_zone = 'SYSTEM';
-
-SET time_zone = 'America/La_Paz';
-
 USE Guia_Empresarial;
 
 -- 1. Usuario

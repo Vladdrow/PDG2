@@ -2,10 +2,14 @@
 import express from "express";
 import app from "./app.js";
 import config from "./config.js";
+import cookieParser from 'cookie-parser';
+
 
 import routerReader from "./routes/reader.routes.js";
 import routerEditor from "./routes/editor.routes.js";
 import routerAuth from "./routes/auth.routes.js";
+import dotenv from 'dotenv';
+dotenv.config();
 
 const port = config.port;
 
@@ -16,7 +20,7 @@ app.use(
 app.use(routerAuth);
 app.use(routerReader);
 app.use(routerEditor);
-app.use;
+app.use(cookieParser());
 
 app.listen(port, () => {
     console.log(`listening on port ${port}`);

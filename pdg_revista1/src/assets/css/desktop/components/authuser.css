@@ -28,12 +28,6 @@
     font-weight: bold;
 }
 
-.first-container .img-logo {
-    min-width: 250px;
-    border-radius: 5px;
-    overflow: hidden;
-}
-
 #img-user {
     height: 100%;
     width: 100%;

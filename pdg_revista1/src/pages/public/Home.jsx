@@ -27,12 +27,17 @@ import B_DescriptionInfo from "../../components/Body/components/B_DescriptionInf
 
 function Home() {
     const [selectedImage, setSelectedImage] = useState(null);
-    const User = [
-        {
-            Name: "Renzo V.",
-            Photo: LogoUser,
-        },
-    ];
+    const User = {
+        ID: "12345",  // ID único del usuario
+        CorreoElectronico: "usuario@ejemplo.com",  // Correo electrónico del usuario
+        Nombre: "Juan",  // Primer nombre del usuario
+        Apellido: "Valencia",  // Apellido del usuario (para simplificar, lo hemos dejado como un solo campo, pero puedes dividirlo en ApellidoPaterno y ApellidoMaterno si lo prefieres)
+        IsEditor: false,  // Indica si el usuario es un editor
+        IsPremium: true,  // Indica si el usuario tiene una suscripción premium
+        FechaRegistro: "2023-01-01",  // Fecha de registro del usuario
+        FechaUltimoAcceso: "2023-09-01",  // Última fecha de acceso del usuario
+        photoURL: ImgUser // URL de la foto del perfil del usuario
+    };
     const NavLinks = [
         {
             text_nav: "Politica de Privacidad",
@@ -101,29 +106,29 @@ function Home() {
     ];
 
     const NewUserPages = [
-        {
+        /* {
             NamePage: "Inicio",
             ToPage: "/",
-        },
-        /* {
-            NamePage: "Explorar",
-            ToPage: "/explore",
         }, */
         {
-            NamePage: "Nosotros",
-            ToPage: "/about",
+            name: "Explorar",
+            path: "/explore",
         },
         {
-            NamePage: "Contáctanos",
-            ToPage: "/contact",
+            name: "Nosotros",
+            path: "/about",
         },
         {
-            NamePage: "Registrarse",
-            ToPage: "/register",
+            name: "Contáctanos",
+            path: "#footer",
         },
         {
-            NamePage: "Iniciar Sesión",
-            ToPage: "/login",
+            name: "Registrarse",
+            path: "/register",
+        },
+        {
+            name: "Iniciar Sesión",
+            path: "/login",
         },
     ];
 
@@ -211,7 +216,7 @@ function Home() {
     };
     return (
         <>
-            <Header User={User} Pages={NewUserPages} />
+            <Header Pages={NewUserPages} user={User}/>
             <main id="home">
             {/* <Link to="/dashboard">Redirect Home</Link> */}
                 <section id="guide-year-section">

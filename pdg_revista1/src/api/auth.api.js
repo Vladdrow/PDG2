@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const getVisitorData = async () =>
-    await axios.get("http://192.168.250.228.:3010/");
+    await axios.get("http://192.168.250.228:3010/");
 
 export const getVisitor = async () =>
     await axios.get("http://192.168.250.228:3010/login");

@@ -34,18 +34,18 @@ function App() {
                     <Route path="dashboard" element={<Dashboard />} />
 
                     {/* Rutas protegidas para usuarios premium */}
-                    <Route element={<ProtectedRoute isAllowed={!!user && user.isPremium || !!user && user.isEditor} redirectTo="/subscribe"/>}>
+                    <Route element={<ProtectedRoute isAllowed={!!user && user.isPremium || !!user && user.isEditor} redirectTo="/register"/>}>
                         {/* <Route path="/premium-content" element={<PremiumContent />} /> */}
-                        {/* <div><h2>Soy premium</h2></div> */}
+                        <Route path="show1" element={<div><h2>soy Premium</h2></div>} />
                     </Route>
 
                     {/* Rutas protegidas para editores */}
-                    <Route path="editor" /* element={<ProtectedRoute isAllowed={!!user && user.isEditor} redirectTo="/login"/>} */>
+                    <Route path="editor" element={<ProtectedRoute isAllowed={!!user && user.isEditor} redirectTo="/login"/>}>
                         {/* <Route path="/manage-companies" element={<ManageCompanies />} />
                         <Route path="/publish-notifications" element={<PublishNotifications />} />
                         <Route path="/manage-content" element={<ManageContent />} />
                         <Route path="/statistics" element={<Statistics />} /> */}
-                        <Route path="show" element={<div><h2>soy Editor</h2></div>} />
+                        <Route path="show2" element={<div><h2>soy Editor</h2></div>} />
                     </Route>
                 </Route>
             </Routes>

@@ -33,19 +33,19 @@ function ImageSections({ images, onSelectImage }) {
                                     groupIndex * itemsPerGroup,
                                     (groupIndex + 1) * itemsPerGroup
                                 )
-                                .map((page, index) => (
+                                .map((image, index) => (
                                     <div
                                         className="carousel-item-gs"
                                         key={index}
-                                        onClick={() => onSelectImage(page)}
+                                        onClick={() => onSelectImage(image)}
                                     >
                                         <a>
                                             <img
-                                                src={page.src}
-                                                alt={page.alt}
+                                                src={image.RutaImagen}
+                                                alt={image.Nombre}
                                             />
                                             <div className="alt-tooltip-gs">
-                                                {page.alt}
+                                                {image.Nombre}
                                             </div>
                                         </a>
                                     </div>

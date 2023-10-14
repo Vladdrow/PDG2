@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://192.168.250.228:3010";
+const BASE_URL = "http://192.168.216.228:3010";
 
 /* export const getVisitorData = async () => await axios.get(`${BASE_URL}/`); */
 

@@ -1,19 +1,19 @@
 import React from "react";
 
 import "../../../assets/css/desktop/components/teammember.css"
-function TeamMember({ photoSrc, name, description }) {
+function TeamMember({ RutaImagen, Nombre, ApellidoPaterno, ApellidoMaterno, Rol  }) {
     return (
         <article className="team-member">
             <div className="cont-1-team">
                 <div className="photo-pers">
-                    <img src={photoSrc} alt={name} />
+                    <img src={RutaImagen} alt={name} />
                 </div>
                 <div className="name-pers">
-                    <h3>{name}</h3>
+                    <h3>{`${Nombre} ${ApellidoPaterno} ${ApellidoMaterno}`}</h3>
                 </div>
             </div>
             <div className="desc-pers">
-                <h4>{description}</h4>
+                <h4>{Rol}</h4>
             </div>
         </article>
     );

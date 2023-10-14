@@ -15,17 +15,32 @@ export const saveUserToDb = async (user) => {
         await pool.query("START TRANSACTION");
 
         const resultUsuario = await pool.query(
-            "INSERT INTO Usuario (CorreoElectronico, Contrasena, TipoUsuario, FechaRegistro) VALUES (?,?,?,?)",
-            [email, password, isEditor ? "1" : "2", new Date()]
+            "INSERT INTO Usuario (CorreoElectronico, Contrasena, RutaImagen, NombreImagen, TipoUsuario, FechaRegistro) VALUES (?,?,?,?,?,?)",/* Añadiendo campos dep prueba */
+            [email, password,"users/", `user${Math.floor(Math.random() * 4) + 1}.svg`,isEditor ? "1" : "2", new Date()]
         );
-
+        console.log(resultUsuario[0]);
         const UsuarioID = resultUsuario[0].insertId;
-        const userTypeTable = isEditor ? "Editor" : "Lector";
 
+        const userTypeTable = isEditor ? "Editor" : "Lector";
+        /* console.log(userTypeTable)
         await pool.query(
-            `INSERT INTO ${userTypeTable} (UsuarioID, Nombre, ApellidoPaterno, ApellidoMaterno) VALUES (?,?,?,?)`,
-            [UsuarioID, nombre, apellidoPaterno, apellidoMaterno]
-        );
+            `INSERT INTO ${userTypeTable} (UsuarioID, Nombre, ApellidoPaterno, ApellidoMaterno, Rol, Descripcion) VALUES (?,?,?,?,?,?)`,
+            [UsuarioID, nombre, apellidoPaterno, apellidoMaterno, "Comercio Exterior", "Alto, flaco de ojos verdes, etc, etc"]
+        ); */
+        let sql = `INSERT INTO ${userTypeTable} (UsuarioID, Nombre, ApellidoPaterno, ApellidoMaterno`;
+        const values = [UsuarioID, nombre, apellidoPaterno, apellidoMaterno];
+
+        if (isEditor) {
+            sql += `, Rol, Descripcion) VALUES (?,?,?,?,?,?)`;
+            values.push(
+                "Comercio Exterior",
+                "Alto, flaco de ojos verdes, etc, etc"
+            );
+        } else {
+            sql += `) VALUES (?,?,?,?)`;
+        }
+
+        await pool.query(sql, values);
 
         await pool.query("COMMIT");
         return "Registrando usuario";
@@ -43,9 +58,10 @@ export const getUserByEmail = async (email) => {
     return results[0];
 };
 export const getDataUser = async (userId) => {
-    const [results] = await pool.query("SELECT ID, CorreoElectronico, TipoUsuario, FechaUltimoAcceso, FechaRegistro  FROM Usuario WHERE ID = ?", [
-        userId,
-    ]);
+    const [results] = await pool.query(
+        "SELECT ID, CorreoElectronico, TipoUsuario, FechaUltimoAcceso, FechaRegistro, RutaImagen, NombreImagen  FROM Usuario WHERE ID = ?",
+        [userId]
+    );
     return results[0];
 };
 
@@ -103,7 +119,6 @@ export const clearFailedAttempts = async (userId) => {
 export const storeKeyForUserWithSalt = async (userId) => {
     const dateUser = getDateRegisterUser(userId);
 
-
     /* console.log("REGISTER USER DATE:",registerUser); */
     const { key, salt } = generateKeyWithSalt(userId, dateUser);
 
@@ -115,7 +130,7 @@ export const storeKeyForUserWithSalt = async (userId) => {
 
     // Guardar en Llave_Valida
     await pool.query(
-        "INSERT INTO Llave_Valida (LlaveEncriptada, FirmaLlave, EstadoLlave, Fecha) VALUES (?, ?, ?, ?)",
+        "INSERT INTO Llave_Valida (LlaveEncriptada, FirmaLlave, EstadoLlave, FechaCreacion) VALUES (?, ?, ?, ?)",
         [key, salt, "1", new Date()]
     );
 

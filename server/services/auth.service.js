@@ -16,7 +16,8 @@ import User from "../models/User.js";
 import jwt from "jsonwebtoken";
 import config from "../config.js";
 
-const JWT_SECRET_STR = config.jwtSecret;
+const JWT_SECRET_STR =
+    "0f350ee0f7fae11cf9bd517f2db0a510353e17f37fc0658fd9f76fb604c6631899f2cd05d9e1fcd08a30ba0e31270325693c3b1ae247f83077a57b6fb6462d00"; /* = config.jwtSecret; */
 
 export const registerUser = async (user) => {
     if (!user.isPasswordValid()) {
@@ -67,6 +68,7 @@ export const loginUser = async (correo, contrasena) => {
             user.id,
             userFromDb.TipoUsuario
         );
+        console.log("Antes de buscar llaves");
         const llaveValida = await hasValidKey(user.id);
         const userPayload = {
             id: userFromDb.ID,
@@ -74,7 +76,9 @@ export const loginUser = async (correo, contrasena) => {
             userType: userFromDb.TipoUsuario,
         };
 
-        const token = jwt.sign(userPayload, JWT_SECRET_STR, { expiresIn: "1h" }); // El token expira en 1 hora
+        const token = jwt.sign(userPayload, JWT_SECRET_STR, {
+            expiresIn: "1h",
+        }); // El token expira en 1 hora
 
         return buildFullUserInfo(
             dataUser,

@@ -1,9 +1,10 @@
 import React from "react";
+import { Link } from "react-router-dom";
 /* Style */
 import "../../assets/css/desktop/pages/dashboard.css";
 
 /* Resources */
-import LogoVer from "../../assets/img/logos/logo-ver.jpg";
+/* import LogoVer from "../../assets/img/logos/logo-ver.jpg"; */
 /* import LogoHor from "../assets/img/logos/logo-hor.jpg"; */
 
 import LogoGourmet from "../../assets/img/logos/logo-gourmet.png";
@@ -29,7 +30,7 @@ function Dashboard() {
     ];
 
     const imageLinks = [
-        {
+/*         {
             image: LogoPrueba,
             link: "https://www.facebook.com",
         },
@@ -48,7 +49,7 @@ function Dashboard() {
         {
             image: LogoPrueba,
             link: "https://www.twitch.com",
-        },
+        }, */
     
     ];
 
@@ -81,6 +82,7 @@ function Dashboard() {
     return (
         <>
             <Header User={User} Pages={PremiumUserPages}/>
+            <Link to="/auth/show1">Redirect premium</Link>
             <main id="dashboard">
                 <LogoAdsSection imageLinks={imageLinks} />
                 <SearchBar />

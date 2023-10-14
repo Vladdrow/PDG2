@@ -42,7 +42,7 @@ const ImgCarousel = ({ images }) => {
                             index === currentIndex ? "active" : ""
                         }`}
                         style={{
-                            backgroundImage: `url(${image.image})`,
+                            backgroundImage: `url(${image.RutaArchivo})`,
                             animation: `${
                                 index === currentIndex ? "fade-in" : "fade-out"
                             } 1s ease-in-out`,

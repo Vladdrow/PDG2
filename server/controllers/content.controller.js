@@ -7,18 +7,19 @@ import {
 
 export const getHomePageData = async (req, res) => {
     try {
-        const books = await fetchBook();
+        const book = await fetchBook();
         const companies = await fetchCompaniesImg();
         const sections = await fetchAllSections();
         const editors = await fetchAllEditors();
 
         const consolidatedData = {
-            books,
+            book,
             companies,
             sections,
             editors
         };
 
+        console.log(book);  
         res.json(consolidatedData);
 
     } catch (error) {

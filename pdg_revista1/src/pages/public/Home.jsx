@@ -6,9 +6,10 @@ import Footer from "../../components/Footer/Footer";
 import "../../assets/css/desktop/pages/home.css";
 import { getHomePageData } from "../../api/auth.api";
 
-import LogoVer from "../../assets/img/logos/logo-ver.jpg";
+/* import LogoVer from "../../assets/img/logos/logo-ver.jpg"; */
 /* import LogoHor from "../assets/img/logos/logo-hor.jpg"; */
 import Guide from "../../assets/resources/guia-logistica-2023.jpg";
+
 import LogoPrueba from "../../assets/img/logos/logo-prueba.jpg";
 import LogoUser from "../../assets/img/logos/logo-user.png";
 import Facebook from "../../assets/img/socialNetworks/logo_facebook.png";
@@ -27,6 +28,7 @@ import B_ImageInfo from "../../components/Body/components/B_ImageInfo";
 import B_DescriptionInfo from "../../components/Body/components/B_DescriptionInfo";
 
 function Home() {
+    const baseURL = "http://192.168.216.228:3010";
     const [selectedImage, setSelectedImage] = useState(null);
 
     const [guideInfoDB, setGuideInfo] = useState({});
@@ -34,18 +36,38 @@ function Home() {
     const [imgSectionsDB, setImgSections] = useState([]);
     const [teamMembersDB, setTeamMembers] = useState([]);
 
+    const randomSection = Math.floor(Math.random() * 25) + 1;
     useEffect(() => {
         const fetchData = async () => {
             try {
+                console.log("Dentro");
                 const response = await getHomePageData();
                 const data = response.data;
-                console.log("response: ", response);
-                console.log("data: ", data);
+                const fullBookImagePath = `${baseURL}/assets/${data.book.RutaImagen}`;
+                data.book.RutaImagen = fullBookImagePath;
+                /* console.log(fullBookImagePath);*/
+                /* /* console.log("response: ", response); */
 
-                /*             setGuideInfo(data.guideInfo);
-            setCompaniesImg(data.imageLinks);
-            setImgSections(data.imgSections);
-            setTeamMembers(data.teamMembers); */
+                console.log("data: ", data);
+                setGuideInfo(data.book);
+                setCompaniesImg(
+                    data.companies.map((company) => ({
+                        ...company,
+                        RutaArchivo: `${baseURL}/assets/${company.RutaArchivo}${company.NombreArchivo}`,
+                    }))
+                );
+                setImgSections(
+                    data.sections.map((section) => ({
+                        ...section,
+                        RutaImagen: `${baseURL}/assets/${section.RutaImagen}${section.NombreImagen}`,
+                    }))
+                );
+                setTeamMembers(
+                    data.editors.map((editor) => ({
+                        ...editor,
+                        RutaImagen: `${baseURL}/assets/${editor.RutaImagen}${editor.NombreImagen}`,
+                    }))
+                );
                 // ... establece otros estados según sea necesario
             } catch (error) {
                 console.error("Hubo un error al obtener los datos:", error);
@@ -53,8 +75,12 @@ function Home() {
         };
 
         fetchData();
+        console.log("companies", companiesImgDB[4]);
+        console.log("sections", imgSectionsDB[4]);
+        console.log("team", teamMembersDB[4]);
     }, []);
 
+    /* const GuideDB = require(guideInfoDB.RutaImagen); */
     const User = {
         ID: "12345", // ID único del usuario
         CorreoElectronico: "usuario@ejemplo.com", // Correo electrónico del usuario
@@ -95,7 +121,7 @@ function Home() {
             link: "https://www.facebook.com",
         },
         {
-            image: LogoVer,
+            /* image:  */
             link: "https://www.youtube.com",
         },
         {
@@ -103,7 +129,7 @@ function Home() {
             link: "https://www.twitter.com",
         },
         {
-            image: LogoVer,
+            /* image: LogoVer, */
             link: "https://www.instagram.com",
         },
         {
@@ -126,8 +152,8 @@ function Home() {
     ];
 
     const images2 = [
-        LogoVer,
-        "../assets/img/logos/logo-prueba",
+        /* LogoVer,
+        "../assets/img/logos/logo-prueba", */
         LogoPrueba,
         "../assets/img/logos/logo-prueba",
         /*LogoVer */
@@ -257,13 +283,13 @@ function Home() {
                 <section id="guide-year-section">
                     <article className="article-guide">
                         <B_ImageInfo
-                            link={guide_info.link}
-                            src={guide_info.src}
+                            link={guideInfoDB.UrlLibro}
+                            src={guideInfoDB.RutaImagen}
                         />
                         <B_DescriptionInfo
-                            title={guide_info.name}
-                            description={guide_info.description}
-                            link={guide_info.link}
+                            title={guideInfoDB.Titulo}
+                            description={guideInfoDB.Descripcion}
+                            link={guideInfoDB.UrlLibro}
                             buttonText="Mas Información"
                         />
                     </article>
@@ -275,7 +301,7 @@ function Home() {
                     <div className="title-featured">
                         <h2>FEATURED COMPANIES</h2>
                     </div>
-                    <ImgCarousel images={imageLinks} />
+                    <ImgCarousel images={companiesImgDB} />
                 </section>
                 <section id="guide-sections">
                     <article className="sects-home guide-sects">
@@ -284,7 +310,7 @@ function Home() {
                         </div>
                         <ImageSections
                             /* ClName="img-sections" */
-                            images={ImgSections}
+                            images={imgSectionsDB}
                             onSelectImage={setSelectedImage}
                         />
                     </article>
@@ -294,27 +320,33 @@ function Home() {
                         <B_DescriptionInfo
                             title={
                                 selectedImage
-                                    ? selectedImage.name
-                                    : ImgSections[0].alt
+                                    ? selectedImage.Nombre
+                                    : imgSectionsDB.length > 0
+                                    ? imgSectionsDB[randomSection].Nombre
+                                    : "Cargando..."
                             }
                             description={
                                 selectedImage
-                                    ? selectedImage.desc
-                                    : ImgSections[0].desc
+                                    ? selectedImage.Descripcion
+                                    : imgSectionsDB.length > 0
+                                    ? imgSectionsDB[randomSection].Descripcion
+                                    : "Cargando..."
                             }
                             link="#"
                             buttonText="Explorar"
                         />
                         <B_ImageInfo
-                            link={
+                        link={
                                 selectedImage
-                                    ? selectedImage.link
+                                    ? selectedImage.link    
                                     : ImgSections[0].link
                             }
                             src={
                                 selectedImage
-                                    ? selectedImage.src
-                                    : ImgSections[0].src
+                                    ? selectedImage.RutaImagen
+                                    : imgSectionsDB.length > 0
+                                    ? imgSectionsDB[randomSection].RutaImagen
+                                    : "Cargando..."
                             }
                         />
                     </article>
@@ -323,7 +355,7 @@ function Home() {
                     <div className="title-our-team">
                         <h2>OUR TEAM</h2>
                     </div>
-                    {teamMembers.slice(0, 3).map((member, index) => (
+                    {teamMembersDB.slice(0, 3).map((member, index) => (
                         <TeamMember key={index} {...member} />
                     ))}
                     <div className="cont-btn">

@@ -1,10 +1,17 @@
 -- Active: 1696876348843@@127.0.0.1@3306@pdg_revista
 
+INSERT INTO
+    Libro(Titulo, Descripcion, UrlLibro)
+VALUES (
+        "VII GUÍA EMPRESARIAL DE LOGÍSTICA",
+        "En julio de 2014, lanzamos a circulación nuestra primera edición de la revista 'Logística & Negocios Internacionales', destinada a cubrir una necesidad de información especializada para orienta y actualizar a profesionales y empresarios vinculados al rubro logramos una rápida y efectiva aceptación en el público lector, gracias al staff de colaboradores quienes apoyan en una acertada planificación de contenido. Luego de tres años de vigencia, al detectar que hacía falta un directorio de las principales empresas e instituciones vinculadas al rubro y, a solicitud de nuestros suscriptores, es que decidimos publicar la Guía Empresarial de Logística, con información ordenada, clasificada y sistematizada, que sirviera como una base de datos actualizada para importadores y exportadores, así como a todo profesional interesado en ingresar al negocio logístico.",
+        "https://logistica-ni.com/guia-empresarial-2023/"
+    );
 SHOW DATABASES;
 
 CREATE DATABASE Guia_Empresarial_1;
 
-DROP DATABASE Guia_Empresarial;
+DROP DATABASE Guia_Empresarial_1;
 
 SHOW TABLES;
 
@@ -20,12 +27,29 @@ SELECT * FROM `Usuario`;
 
 SELECT * FROM `Lector`;
 
+SELECT * FROM `Editor`;
+
 SELECT * FROM `Llave_Lector`;
 
 SELECT * FROM `Llave_Valida`;
 
 USE Guia_Empresarial_1;
 
+
+SELECT * FROM `Empresa`;
+SELECT * FROM `Archivo_Adjunto` WHERE EmpresaID = 2;
+SELECT */* , COUNT(TipoMembresia)  */FROM `Membresia_Empresa` WHERE TipoMembresia = 2;
+SELECT e.ID, e.Nombre, e.SeccionID, me.TipoMembresia, aa.NombreArchivo , aa.RutaArchivo AS Imagen
+        FROM Empresa e
+        JOIN Membresia_Empresa me ON e.ID = me.EmpresaID
+        JOIN Archivo_Adjunto aa ON e.ID = aa.EmpresaID
+        WHERE me.TipoMembresia = 2;
+
+SELECT e.ID, e.Nombre, e.SeccionID, me.TipoMembresia, aa.NombreArchivo ,aa.RutaArchivo AS Imagen
+FROM Empresa e
+JOIN Membresia_Empresa me ON e.ID = me.EmpresaID
+JOIN Archivo_Adjunto aa ON e.ID = aa.EmpresaID
+WHERE me.TipoMembresia = '2' AND aa.TipoArchivo = '1';
 --  Tablas para el sitio web
 
 CREATE TABLE
@@ -44,12 +68,18 @@ CREATE TABLE
         ID INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
         CorreoElectronico VARCHAR(255) UNIQUE,
         Contrasena VARCHAR(255),
+        RutaImagen VARCHAR(255),
+        NombreImagen VARCHAR(100),
         Salt VARCHAR(255) NULL,
-        TipoUsuario ENUM('1', '2') DEFAULT '2', -- ('Editor', 'Lector') por defecto Lector
+        TipoUsuario ENUM('1', '2') DEFAULT '2',
+        -- ('Editor', 'Lector') por defecto Lector
         IntentosFallidos INT DEFAULT 0,
-        BloqueoTemporal DATETIME NULL DEFAULT NULL, -- Fecha y hora hasta la cual el usuario está bloqueado
-        TokenRestablecimiento VARCHAR(255) NULL, -- Token para restablecer contraseña
-        ExpiracionTokenRestablecimiento DATETIME NULL DEFAULT NULL, -- Fecha de caducidad del token de restablecimiento
+        BloqueoTemporal DATETIME NULL DEFAULT NULL,
+        -- Fecha y hora hasta la cual el usuario está bloqueado
+        TokenRestablecimiento VARCHAR(255) NULL,
+        -- Token para restablecer contraseña
+        ExpiracionTokenRestablecimiento DATETIME NULL DEFAULT NULL,
+        -- Fecha de caducidad del token de restablecimiento
         FechaRegistro DATETIME,
         FechaUltimoAcceso DATETIME NULL DEFAULT NULL,
         INDEX (CorreoElectronico)
@@ -64,7 +94,7 @@ CREATE TABLE
         Nombre VARCHAR(100),
         ApellidoPaterno VARCHAR(100),
         ApellidoMaterno VARCHAR(100),
-        RutaImagen VARCHAR(255) NULL,
+        /* RutaImagen VARCHAR(255) NULL, */
         Rol VARCHAR(100) NOT NULL,
         Descripcion TEXT NULL,
         FOREIGN KEY (UsuarioID) REFERENCES Usuario(ID)
@@ -79,7 +109,7 @@ CREATE TABLE
         Nombre VARCHAR(100),
         ApellidoPaterno VARCHAR(100),
         ApellidoMaterno VARCHAR(100),
-        RutaImagen VARCHAR(255) NULL,
+        /* RutaImagen VARCHAR(255) NULL, */
         FOREIGN KEY (UsuarioID) REFERENCES Usuario(ID)
     );
 
@@ -90,7 +120,8 @@ CREATE TABLE
         ID INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
         Nombre VARCHAR(100),
         Descripcion TEXT,
-        RutaImagen VARCHAR(255)
+        RutaImagen VARCHAR(255),
+        NombreImagen VARCHAR(100)
     );
 
 -- 5. Empresa
@@ -155,7 +186,7 @@ CREATE TABLE
         Ciudad VARCHAR(100),
         Estado VARCHAR(100),
         Pais VARCHAR(100),
-        InformacionAdicional TEXT
+        InformacionAdicional TEXT DEFAULT NULL
     );
 
 -- 10. Direccion_Empresa

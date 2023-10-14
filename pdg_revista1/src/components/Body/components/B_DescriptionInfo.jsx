@@ -2,12 +2,12 @@ import React from "react";
 
 function B_DescriptionInfo({ title, description, link, buttonText }) {
     const maxLength = 600;
-    const processedDescription =
+/*     const processedDescription =
         description.length > maxLength
             ? description.substring(0, maxLength)
             : description;
 
-    const showMoreButton = description.length > maxLength;
+    const showMoreButton = description.length > maxLength; */
 
     return (
         <div className="box-description">

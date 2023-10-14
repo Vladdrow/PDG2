@@ -1,10 +1,10 @@
 import React from "react";
 
-function B_ImageInfo({ link, src }) {
+function B_ImageInfo({ link, src, clase="" }) {
     return (
         <a href={link}>
-            <div className="box-img">
-                <div className="img-info">
+            <div className={`box-img ${clase}`}>
+                <div className="img-info">  
                     <img src={src} alt="" />
                 </div>
             </div>

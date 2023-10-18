@@ -1,0 +1,36 @@
+.middle-card {
+    background-color: #fff;
+    padding: 20px;
+    width: 650px;
+    height: 75vh; /* Si puedes, considera cambiar a una medida relativa como 'vh' o 'em' */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+    align-items: center;
+    position: relative; 
+    color: white;
+}
+
+.d-card-slide.middle-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Oscurece el fondo con un 50% de opacidad */
+    pointer-events: none; 
+    z-index: 1; /* Se asegura de que esté detrás del contenido */
+}
+
+.middle-card * {
+    font-weight: bold;
+    color: white;
+    z-index: 2; /* Se asegura de que esté por encima del pseudo-elemento oscuro */
+}
+
+.btn.btn-danger {
+    color: white;
+    border-color: white;
+}

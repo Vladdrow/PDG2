@@ -13,7 +13,7 @@ function TeamMember({ RutaImagen, Nombre, ApellidoPaterno, ApellidoMaterno, Rol 
                 </div>
             </div>
             <div className="desc-pers">
-                <h4>{Rol}</h4>
+                <h3>{Rol}</h3>
             </div>
         </article>
     );

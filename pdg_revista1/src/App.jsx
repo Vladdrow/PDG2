@@ -1,6 +1,8 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import { useAuth } from "./context/AuthContext";
 import ProtectedRoute from "./components/Security/ProtectedRoute";
+
+
 /* Style */
 import "./App.css";
 /* Pages */
@@ -11,7 +13,7 @@ import Dashboard from "./pages/authenticated/Dashboard";
 
 function App() {
     const location = useLocation();
-    const currentPath = location.pathname.slice(1); // Elimina el "/" inicial
+    const currentPath = location.pathname.slice(1).replace(/\//g, '_'); // Elimina el "/" inicial
     const { user, isAuthenticated } = useAuth();
 
     return (

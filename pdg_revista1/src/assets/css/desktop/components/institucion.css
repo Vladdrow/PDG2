@@ -1,0 +1,175 @@
+.institucion {
+    flex-grow: 1;
+    flex-basis: 400px;
+    border: 1px solid #ddd;
+    max-width: 480px;
+    width: 30%;/* Esto puedo cambiar */
+    min-width: 250px;
+    padding: 10px;
+    margin: 10px 15px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #cdcdcd;
+    transition: flex-grow 0.5s ease-in-out;
+    height: fit-content;
+    position: relative;
+}
+
+.institucion .name-img-inst {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Esto alinea verticalmente el nombre y la imagen */
+    gap: 10px; /* Esto agrega un espacio entre el nombre y la imagen */
+    border-bottom: 2px solid #000;
+    margin-bottom: 5px;
+}
+
+.institucion .name-img-inst #name-inst{
+    /* width: 70%; */ /* 70% del espacio para el nombre */
+    font-size: 18px;
+    margin-bottom: 8px;
+    font-weight: bold !important;
+}
+.institucion .name-img-inst img {
+    width: 20%; /* 30% del espacio para la imagen */
+    max-width: 100%; /* Asegura que la imagen no sobrepase su contenedor */
+    height: auto;
+}
+.institucion p {
+    margin: 4px 0;
+}
+
+.institucion .info-inst{
+    display: flex;
+    /* align-items: center; */
+}
+
+.institucion .info-inst svg {
+    margin-right: 5px;
+    padding-right: 2px;
+    position: relative;
+    height: 1.5rem;
+    top: 5px;
+}
+.info-inst.correo,.info-inst.phone {
+    width: fit-content;
+    margin-right: 50px;
+}
+
+.phone-inst-info{
+    display: flex;
+    flex-wrap: wrap;
+}
+.success-copy {
+    border: 1px solid #fff;
+    padding: 2px;
+    background-color: rgb(4, 123, 37);
+    border-radius: 3px;
+    color: #fff;
+}
+
+.toggle-branches {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    cursor: pointer;
+    background-color: rgba(255,255,255,0.8);  /* le damos un poco de fondo blanco con opacidad para asegurarnos de que se vea */
+    padding: 5px 10px;  /* espacio alrededor del ícono */
+    border-radius: 5px;  /* esquinas redondeadas */
+}
+.sucursal-info {
+    overflow: hidden;  /* Esto asegura que el contenido no se muestre cuando el max-height es 0 */
+    max-height: 0;     /* Inicialmente, no queremos mostrar las sucursales */
+    transition: max-height 0.3s ease-in-out;  /* Esta es la animación fluida */
+}
+
+.sucursal-info.active {
+    max-height: 1000px;  /* Este valor debería ser más grande que la altura máxima que tus sucursales podrían tener */
+}
+
+.dropdown-entity {
+    transform: rotate(0deg);
+    /* transition: transform 0.3s ease-in-out; */
+}
+.dropdown-entity.rotated {
+    transform: rotate(-180deg);
+}
+
+/* .institucion p:not(.selectable) {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+} */
+    /* .institucion .name-img-inst {
+        width: 100%;
+        height: 40%;
+        display: flex;
+    }
+    .name-img-inst p {
+        width: 70%;
+    }
+    .name-img-inst .img-inst {
+        
+        height: 10vh;
+    }
+    .name-img-inst .img-inst img {
+        width: 100%;
+    } */
+
+
+    /* @media (max-width: 1024px) and (min-width: 768px) {
+    .institucion {
+        flex-basis: 45%; 
+        max-width: 400px;
+        margin: 8px 10px;
+    }
+    
+    .institucion .name-img-inst {
+        gap: 8px;
+    }
+
+    .institucion .name-img-inst #name-inst{
+        font-size: 16px;
+        margin-bottom: 6px;
+    }
+
+    .institucion .name-img-inst img {
+        width: 25%;
+    }
+}
+
+*/
+@media (max-width: 767px) {
+    .institucion {
+        flex-basis: 90%; 
+        width: 100%;
+        margin: 6px 5px;
+    }
+    
+    .institucion .name-img-inst {
+        gap: 5px;
+    }
+
+    .institucion .name-img-inst #name-inst{
+        font-size: 14px;
+        margin-bottom: 5px;
+    }
+
+    .institucion .name-img-inst img {
+        width: 30%;
+    }
+
+    .phone-inst-info{
+        flex-direction: column;
+    }
+
+    .info-inst.correo, .info-inst.phone {
+        margin-right: 20px;
+    }
+
+    .toggle-branches {
+        right: 5px;
+        bottom: 5px;
+    }
+}

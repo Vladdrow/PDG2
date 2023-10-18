@@ -1,4 +1,5 @@
 #footer {
+    background-color: aliceblue;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
@@ -25,7 +26,7 @@
 }
 
 .social-media-links {
-    filter: invert(100%);
+    /* filter: invert(100%); */
 }
 .social-media-links .title-social p {
     margin: 0;
@@ -45,7 +46,7 @@
 .nav-footer,
 .copyright {
     flex-basis: 100%; /* O ajusta el valor según tus necesidades */
-    margin-top: 10px; /* Espacio entre las dos filas de secciones */
+    margin-top: 20px; /* Espacio entre las dos filas de secciones */
     display: flex;
     margin-left: 50px;
 }box-img
@@ -53,7 +54,6 @@
 /* Asegúrate de ajustar los estilos según tus necesidades específicas */
 
 .nav-footer {
-    margin-top: 30px;
     display: flex;
     flex-direction: row;
 }
@@ -61,9 +61,20 @@
 .nav-footer a {
     margin-right: 25px;
     text-decoration: none;
-    color: #ffb9b9;
+    color: #000000;
+    border-bottom:1px solid #000000;
 }
 
 .nav-footer a:hover {
     color: #fff;
+}
+
+@media (max-width: 768px) {
+    #footer .nav-footer {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .nav-footer, .copyright {
+        margin-left: 10px;
+    }
 }

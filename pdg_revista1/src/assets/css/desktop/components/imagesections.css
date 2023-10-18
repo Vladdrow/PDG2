@@ -1,52 +1,42 @@
 .img-sections {
     overflow: hidden;
     position: relative;
-    width: 60%;
+    width: 70%;
+    height: 100%;
 }
 
 .carousel-container-gs {
     display: flex;
     transition: transform 0.5s ease-in-out;
     width: 100%;
-    /* flex-wrap: wrap; */
 }
 
 .carousel-group-gs {
+    
+    /* background-color: #00eeff; */
     flex: 0 0 100%;
     display: flex;
     flex-wrap: wrap;
-    /* width: 200px; */
 }
 
 .carousel-item-gs {
-    flex: 0 0 33.33%;
-    box-sizing: border-box;
-    padding: 5px;
-    height: 50%; /* 2 filas */
-}
-
-.carousel-dots-gs {
     display: flex;
-    justify-content: center;
-    /* padding: 10px 0; */
     align-items: center;
-    margin-top: 10px 0px !important;
-}
-
-.carousel-item-gs {
-    position: relative; /* Establece un contexto de posicionamiento para el tooltip */
     flex: 0 0 33.33%;
     box-sizing: border-box;
     padding: 5px;
-    height: 50%; /* 2 filas */
+    height: 45%;
+    position: relative;
 }
 
 .carousel-item-gs img {
-    transition: transform 0.3s ease-in-out; /* Transición fluida */
+    transition: transform 0.3s ease-in-out;
+    
+    width: 100%;
 }
 
 .carousel-item-gs:hover img {
-    transform: scale(1.1); /* Efecto de acercamiento al pasar el mouse */
+    transform: scale(1.1);
 }
 
 .alt-tooltip-gs {
@@ -60,9 +50,16 @@
     border-radius: 5px;
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
-    pointer-events: none; /* Asegura que el tooltip no interfiera con otros eventos del mouse */
+    pointer-events: none;
 }
 
 .carousel-item-gs:hover .alt-tooltip-gs {
     opacity: 1;
+}
+
+.carousel-dots-gs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px 0;
 }

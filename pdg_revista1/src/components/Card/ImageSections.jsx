@@ -39,7 +39,7 @@ function ImageSections({ images, onSelectImage }) {
                                         key={index}
                                         onClick={() => onSelectImage(image)}
                                     >
-                                        <a>
+                                        <a href="#information-section">
                                             <img
                                                 src={image.RutaImagen}
                                                 alt={image.Nombre}

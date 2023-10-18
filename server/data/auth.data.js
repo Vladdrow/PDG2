@@ -122,9 +122,9 @@ export const storeKeyForUserWithSalt = async (userId) => {
     /* console.log("REGISTER USER DATE:",registerUser); */
     const { key, salt } = generateKeyWithSalt(userId, dateUser);
 
-    // Guardar en Llave_Lector
+    // Guardar en Llave_Usuario
     await pool.query(
-        "INSERT INTO Llave_Lector (LectorID, LlaveEncriptada, FirmaLlave, Estado, FechaCreacion) VALUES (?, ?, ?, ?, ?)",
+        "INSERT INTO Llave_Usuario (LectorID, LlaveEncriptada, FirmaLlave, Estado, FechaCreacion) VALUES (?, ?, ?, ?, ?)",
         [userId, key, salt, "1", new Date()]
     );
 
@@ -139,7 +139,7 @@ export const storeKeyForUserWithSalt = async (userId) => {
 //Verificar si tiene una llave activa
 export const hasActiveKey = async (userId) => {
     const [results] = await pool.query(
-        "SELECT * FROM Llave_Lector WHERE LectorID = ? AND Estado = '1'",
+        "SELECT * FROM Llave_Usuario WHERE LectorID = ? AND Estado = '1'",
         [userId]
     );
     return results.length > 0;
@@ -147,7 +147,7 @@ export const hasActiveKey = async (userId) => {
 
 export const getLastKeyGenerationDate = async (userId) => {
     const [results] = await pool.query(
-        "SELECT FechaCreacion FROM Llave_Lector WHERE LectorID = ? ORDER BY FechaCreacion DESC LIMIT 1",
+        "SELECT FechaCreacion FROM Llave_Usuario WHERE LectorID = ? ORDER BY FechaCreacion DESC LIMIT 1",
         [userId]
     );
     return results[0]?.FechaCreacion;
@@ -156,7 +156,7 @@ export const getLastKeyGenerationDate = async (userId) => {
 //
 export const getUserKey = async (userId) => {
     const [results] = await pool.query(
-        "SELECT LlaveEncriptada FROM Llave_Lector WHERE LectorID = ?",
+        "SELECT LlaveEncriptada FROM Llave_Usuario WHERE UsuarioID = ?",
         [userId]
     );
     if (results.length === 0) {

@@ -331,18 +331,18 @@ CREATE TABLE
         INDEX (EstadoLlave)
     );
 
--- 20. Llave_Lector
+-- 20. Llave_Usuario
 
 CREATE TABLE
-    Llave_Lector (
+    Llave_Usuario (
         ID INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-        LectorID INT UNSIGNED,
+        UsuarioID INT UNSIGNED,
         LlaveEncriptada VARCHAR(255),
         FirmaLlave VARCHAR(255),
         Estado ENUM('1', '0', '-1'),
         /* ENUM('Activo', 'Inactivo', 'Expirado')  */
         FechaCreacion DATETIME,
-        FOREIGN KEY (LectorID) REFERENCES Lector(ID)
+        FOREIGN KEY (UsuarioID) REFERENCES Usuario(ID)
     );
 
 -- 21. Pago_Lector

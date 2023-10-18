@@ -10,8 +10,6 @@ import Logistica from "../../assets/resources/pages/login/transporte.jpg";
 import B_FormWelcome from "../../components/Body/components/B_FormWelcome";
 import LoadingOverlay from "../../components/Global/LoadingOverlay";
 
-import moment from "moment-timezone";
-
 function Login() {
     const navigate = useNavigate();
     const { login: loginAuth, user: userAuth } = useAuth();
@@ -76,9 +74,6 @@ function Login() {
                 <section className="form-login">
                     <h2 className="card-title text-center mb-4 pt-3">
                         Inicio de Sesión
-                        {/* {fecha && (
-                            <div className="alert alert-danger">{fecha}</div>
-                        )} */}
                     </h2>
                     <form onSubmit={handleSubmit}>
                         <div className="box-inp mb-3">
@@ -133,7 +128,6 @@ function Login() {
                         <a href="#">¿Olvidaste tu contraseña?</a>
                     </div>
                 </section>
-                <Link to="/auth/dashboard">Redirect Home</Link>
             </div>
         </main>
     );

@@ -31,8 +31,21 @@ export const register = async (req, res) => {
             res.send(results);
         } else {
             // Si inputData es un objeto
-            const result = await processUser(inputData);
-            res.send(result);
+            const resultRegister = await processUser(inputData);
+            if (resultRegister) {
+                // Asumiendo que esto indica un registro exitoso
+                const { correo, contrasena } = inputData;
+                const resultLogin = await loginUserService(correo, contrasena);
+                if (resultLogin.success) {
+                    res.send(resultLogin); // Envía la respuesta del login que incluye el token
+                } else {
+                    // Maneja cualquier error que pueda ocurrir durante el login
+                    res.status(401).send(resultLogin.message);
+                }
+            } else {
+                // Maneja cualquier error que pueda ocurrir durante el registro
+                res.status(500).send("Hubo un error al registrar el usuario");
+            }
         }
     } catch (error) {
         console.error(error);

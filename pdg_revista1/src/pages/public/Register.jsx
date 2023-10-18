@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 import "../../assets/css/desktop/pages/register.css";
 /* Frontend */
@@ -12,6 +13,8 @@ import LoadingOverlay from "../../components/Global/LoadingOverlay";
 
 import { register } from "../../api/auth.api";
 const Register = () => {
+    const navigate = useNavigate();
+    const { login: loginAuth, user: userAuth } = useAuth();
     const [formData, setFormData] = useState({
         firstName: "",
         lastName: "",
@@ -29,7 +32,11 @@ const Register = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        let user = new UserRegistration(formData.email, formData.password, formData.confirmPassword);
+        let user = new UserRegistration(
+            formData.email,
+            formData.password,
+            formData.confirmPassword
+        );
         user.setNombreCompleto(formData.firstName, formData.lastName);
 
         if (!user.passwordsMatch()) {
@@ -54,9 +61,15 @@ const Register = () => {
         setLoading(true);
         try {
             const response = await register(userData);
-            console.log("Registro exitoso:", response.data);
-            setRegister(response.data);
-            /* console.log(user); */
+            if (response.data.success) {
+                console.log("Registro y login exitoso:", response.data);
+                setRegister(response.data);
+                loginAuth(response.data.userDataDB);
+                // Redirige al usuario a la nueva ruta
+                navigate("/auth/dashboard");
+            } else {
+                // Maneja cualquier error que pueda ocurrir
+            }
         } catch (error) {
             console.error("Error en el registro:", error);
             setRegister(error.response.data);
@@ -134,7 +147,7 @@ const Register = () => {
                                 placeholder="Ingresa tu correo electrónico"
                             />
                         </div>
-                        <div className="box-inp row mb-3">
+                        <div className="box-inp row ">
                             <div className="col">
                                 <label
                                     htmlFor="password"
@@ -179,7 +192,9 @@ const Register = () => {
                             </p>
                         </div> */}
                         {answerRegister && (
-                            <div className="alert alert-success">{answerRegister}</div>
+                            <div className="alert alert-success">
+                                {answerRegister}
+                            </div>
                         )}
                         <div className="btn-contain">
                             <button

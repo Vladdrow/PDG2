@@ -6,13 +6,12 @@ import RowRight from "../../assets/svg/right-circle.svg";
 import CarouselDots from "./CarouselDots";
 import "../../assets/css/desktop/components/imgcarousel.css"
 
+
 const ImgCarousel = ({ images }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
     const nextSlide = () => {
-        setCurrentIndex((prevIndex) =>
-            prevIndex === images.length - 1 ? 0 : prevIndex + 1
-        );
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
     };
 
     const prevSlide = () => {
@@ -21,23 +20,23 @@ const ImgCarousel = ({ images }) => {
         );
     };
 
-    // Cambia automáticamente la imagen cada 5 segundos
     useEffect(() => {
         const interval = setInterval(nextSlide, 5000);
         return () => clearInterval(interval);
-    }, []);
+    }, [images]);  // Añadido la dependencia images para asegurarse de que el useEffect se ejecute si images cambia
 
     return (
         <div className="carousel">
             <div className="carousel-inter">
                 <button className="carousel-button prev" onClick={prevSlide}>
-                    <img src={RowLeft} alt="" />
+                    <img src={RowLeft} alt="Previous slide" />
                 </button>
                 {images.map((image, index) => (
                     <a
                         key={index}
-                        href={image.link} // Usa el enlace correspondiente
+                        href={image.link}
                         target="_blank"
+                        rel="noopener noreferrer"  // Añadido por seguridad al usar target="_blank"
                         className={`carousel-slide ${
                             index === currentIndex ? "active" : ""
                         }`}
@@ -50,7 +49,7 @@ const ImgCarousel = ({ images }) => {
                     ></a>
                 ))}
                 <button className="carousel-button next" onClick={nextSlide}>
-                    <img src={RowRight} alt="" />
+                    <img src={RowRight} alt="Next slide" />
                 </button>
             </div>
             <CarouselDots

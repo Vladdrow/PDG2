@@ -1,9 +1,9 @@
-img {
+/* img {
     width: 100%;
 }
-
+ */
 #dashboard {
-    background-color: #d7c0c0;
+    /* background-color: #d7c0c0; */
     margin: 10px;
     padding: 10px;
 }
@@ -65,7 +65,18 @@ img {
     height: 100%;
 }
 
+/* INSTITUCIONES */
+#dsh-empr-inst{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px 15px;
+}
+
 /* Publicaciones y/o articulos */
+
+
+
+
 .sect-pubs {
     display: flex;
 }
@@ -179,4 +190,50 @@ img {
 
 .ads-aside .big-ads {
     width: 100%;
+}
+
+
+/*  */
+.b-sect-info {
+    padding: 70px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+@media (max-width: 768px) {
+    #dashboard {
+        margin: 0px;
+        padding: 0px;
+    }
+    .b-sect-info{
+        padding: 20px 0px;
+        flex-direction: column;
+        
+    }
+    .d-card-slide {
+        width: 100% !important;
+        margin: 10px 0px !important;
+        height: 50vh !important;
+    }
+    .d-card-slide.card-corner {
+        height: 20vh !important;
+    }
+    .d-card-slide.card-corner.disabled {
+        display: none !important;
+    }
+    .middle-card{
+        width:100% !important;
+        height: 100%;
+    }
+    #dsh-empr-inst {
+        margin: 8px 2px;
+        flex-wrap: nowrap;
+        flex-direction: column !important;
+        width: 100%;
+    }
+    .institucion {
+        width: 100%;
+    }
 }

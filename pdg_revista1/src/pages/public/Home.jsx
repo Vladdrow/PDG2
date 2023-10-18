@@ -4,7 +4,7 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 
 import "../../assets/css/desktop/pages/home.css";
-import { getHomePageData } from "../../api/auth.api";
+import { getHomePageData } from "../../api/content.api";
 
 /* import LogoVer from "../../assets/img/logos/logo-ver.jpg"; */
 /* import LogoHor from "../assets/img/logos/logo-hor.jpg"; */
@@ -28,7 +28,7 @@ import B_ImageInfo from "../../components/Body/components/B_ImageInfo";
 import B_DescriptionInfo from "../../components/Body/components/B_DescriptionInfo";
 
 function Home() {
-    const baseURL = "http://192.168.216.228:3010";
+    const baseURL = "http://192.168.18.228:3010";
     const [selectedImage, setSelectedImage] = useState(null);
 
     const [guideInfoDB, setGuideInfo] = useState({});
@@ -278,7 +278,7 @@ function Home() {
     };
     return (
         <>
-            <Header Pages={NewUserPages} /* user={User} */ />
+            <Header Pages={NewUserPages}isHome={true}/* user={User} */ />
             <main id="home">
                 <section id="guide-year-section">
                     <article className="article-guide">
@@ -309,7 +309,7 @@ function Home() {
                             <h2>SECTIONS</h2>
                         </div>
                         <ImageSections
-                            /* ClName="img-sections" */
+                            
                             images={imgSectionsDB}
                             onSelectImage={setSelectedImage}
                         />
@@ -317,7 +317,7 @@ function Home() {
                 </section>
                 <section id="information-section">
                     <article className="sect-info">
-                        <B_DescriptionInfo
+                      º  <B_DescriptionInfo
                             title={
                                 selectedImage
                                     ? selectedImage.Nombre

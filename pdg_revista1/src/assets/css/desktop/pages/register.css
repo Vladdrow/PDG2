@@ -4,7 +4,7 @@
 }
 .container h2 {
     font-weight: bold !important;
-} 
+}
 
 .register-box {
     margin-left: 0 !important;
@@ -15,10 +15,10 @@
     /* display: none; */ /* Para mobile lo activamos */
 }
 
-.container .welcome-text{
+.container .welcome-text {
     padding: 10px 100px 0px 100px;
 }
-.container .welcome-text p{
+.container .welcome-text p {
     font-size: 18px;
 }
 
@@ -30,16 +30,39 @@
     margin-bottom: 20px !important;
     font-weight: bold;
 }
-.container .btn-contain{
+.box-inp input[type="text"] {
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    width: 100%;
+}
+.container .btn-contain {
     text-align: center;
 }
-.btn-contain button{
+.btn-contain button {
     width: 100%;
 }
 
-.container .therms-conditions, .container .have-account {
+.container .therms-conditions,
+.container .have-account {
     margin: 10px 0px;
     text-align: center;
     display: flex;
     justify-content: center;
+}
+
+@media (max-width: 767px) {
+    .box-inp.row {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .box-inp.row .col {
+        margin-bottom: 10px; /* Espacio entre los campos */
+    }
+
+    .box-inp.row input[type="text"],
+    .box-inp.row input[type="email"],
+    .box-inp.row input[type="password"] {
+        width: 100%;
+    }
 }

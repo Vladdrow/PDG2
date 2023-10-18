@@ -1,10 +1,10 @@
 import axios from "axios";
 
-const BASE_URL = "http://192.168.216.228:3010";
+const BASE_URL = "http://192.168.18.228:3010";
 
 /* export const getVisitorData = async () => await axios.get(`${BASE_URL}/`); */
 
-export const getHomePageData = async () => await axios.get(`${BASE_URL}/`);
+/* export const getHomePageData = async () => await axios.get(`${BASE_URL}/`); */
 
 export const getVisitor = async () => await axios.get(`${BASE_URL}/login`);
 

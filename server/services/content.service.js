@@ -2,7 +2,9 @@ import {
     getBookInfo,
     getCompaniesImg,
     getAllSections,
-    getAllEditors
+    getAllEditors,
+    getSocialNetworksFromDB,
+    getBasicUsersUnified,
 } from "../data/content.data.js";
 
 export const fetchBook = async () => {
@@ -20,3 +22,16 @@ export const fetchAllSections = async () => {
 export const fetchAllEditors = async () => {
     return await getAllEditors();
 };
+
+export const fetchSocialNetworks = async () => {
+    return await getSocialNetworksFromDB();
+};
+/* Editores */
+export const fetchBasicUsersUnified = async (page, pageSize) => {
+    return await getBasicUsersUnified(page, pageSize);
+};
+
+/* export const fetchSocialNetworksIcon = async () => {
+    const files = await getSocialNetworksIcon();
+    return files;
+}; */

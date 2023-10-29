@@ -12,6 +12,7 @@
     width: 100%;
     min-width: 500px;
     min-height: 100vh;
+    
     /*     background-color: #fed3d3; */
     background-color: #060233;
     background-color: #1e43a1;
@@ -21,11 +22,9 @@
 }
 
 .App {
-    /* margin: 10px; */
-    width: 1550px !important;
+    width: 1600px !important;
     min-width: 500px;
-    background-color: #5c8ab3;
-    /* min-width: 768px; */
+    background-color: rgba(111, 103, 187, 0.5);
 }
 
 .App.register {
@@ -51,4 +50,16 @@
 .App.auth_dashboard {
     max-width: 1800px !important;
     min-width: 500px !important;
+}
+.App.contact {
+    max-width: 1600px !important;
+    min-width: 500px !important;
+    background-color: transparent !important;
+    display: grid;
+}
+
+.App.auth_editor_dashboard {
+    width: 100% !important;
+    min-width: fit-content;
+    margin: 0;
 }

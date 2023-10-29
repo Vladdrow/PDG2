@@ -1,0 +1,291 @@
+/* .publisher-registry {
+    min-width: 500px;
+    width: 650px    ;
+    max-width: 700px;
+}
+.publisher-registry input {
+    margin-bottom: 20px;
+}
+.publisher-registry label {
+    margin-top: 10px;
+    font-weight: bold !important;
+}
+ */
+#show-users{
+    /* width: fit-content; */
+    padding: 0px 20px 20px 20px;
+    width: 100%;
+    height: fit-content;
+    background-color: azure;
+}
+
+#show-users h2 {
+    margin-top: 25px;
+    margin-bottom: 40px;
+}
+.header-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.right-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+.right-btn:hover {
+    background-color: #0056b3;
+}
+
+.users-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* width: 80%; */
+    min-width: 1200px;
+    /* max-width: 1300px; */
+    margin: 0 auto;
+    height: 100vh;
+    position: relative;  
+    /* max-height: calc(100vh - 50px); */
+    overflow-y: auto;
+}
+
+.table-container {
+    flex: 1;
+    overflow-y: auto;
+}
+
+/* Estilos para la sección de filtros */
+.filters-users-list {
+    border: 1px solid rgb(121, 119, 119); /* Ajusta el color y el grosor del borde según sea necesario */
+    position: relative;
+    padding: 5px;
+    border-radius: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;  /* Centrar horizontalmente */
+    margin-bottom: 20px;
+    width: 100%; /* Ocupar todo el ancho disponible */
+}
+.filters-users-list::before {
+    content: "Filtros";
+    position: absolute;
+    left: 10px;
+    top: -20px;
+    background: #fff; /* Asegúrate de que el fondo coincida con el color de fondo de tu página */
+    padding: 0 5px;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.main-filters, .additional-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;  /* Centrar los filtros principales horizontalmente */
+}
+
+.filter-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: nowrap; /* Evita que los hijos del contenedor se ajusten al ancho disponible */
+}
+
+.filter-label {
+    font-weight: bold;
+}
+
+.filter-select, .filter-input {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.filter-select:focus, .filter-input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.show-more-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.show-more-btn:hover {
+    background-color: #0056b3;
+}
+
+.additional-filters {
+    width: 100%;
+}
+.last-main-filter-with-button {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    justify-content: center; /* Centrar el filtro y el botón horizontalmente */
+}
+
+
+/* MODAL */
+
+/* Estilos para el overlay del modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.75); /* Semi-transparente negro */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transition: opacity 0.3s ease-in-out;
+    opacity: 0;
+}
+.modal-overlay--after-open {
+    opacity: 1;
+}
+
+/* Estilos para el contenido del modal */
+.modal-content {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 600px; /* Ancho máximo del modal */
+    width: 90%; /* Ocupa el 90% del ancho disponible */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Sombra suave alrededor del modal */
+    position: relative;
+
+    transition: transform 0.3s ease-in-out, opacity 0.4s ease-in-out;
+    transform: scale(0.9);
+    opacity: 0;
+}
+.modal-content--after-open {
+    transform: scale(1);
+    opacity: 1;
+}
+
+
+/* Estilos para el botón de cerrar */
+.modal-content button {
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.modal-content button:hover {
+    background-color: #0056b3;
+}
+
+/* Espacio entre los campos del formulario */
+.modal-content form div {
+    margin-bottom: 15px;
+}
+
+/* Estilos específicos para el botón de cerrar modal */
+.close-modal {
+    position: absolute; /* Esto posicionará el botón relativo al modal */
+    top: 10px;          /* Espacio desde la parte superior */
+    right: 10px;        /* Espacio desde la parte derecha */
+    background-color: transparent; /* Sin fondo */
+    color: #555;        /* Color gris oscuro para la "X" */
+    font-size: 24px;    /* Tamaño de letra más grande para la "X" */
+    padding: 5px 10px;  /* Espaciado interno del botón */
+    border: none;       /* Sin borde */
+    cursor: pointer;    /* Mano al pasar el mouse por encima */
+    transition: color 0.2s; /* Transición suave del color */
+}
+
+.close-modal:hover {
+    color: #ff0000; 
+}
+
+/* BOTONES */
+.btn-list-nav {
+    display: flex;
+    justify-content: flex-end; /* Centra los elementos horizontalmente */
+    align-items: center;     /* Centra los elementos verticalmente */
+    margin-top: 20px;        /* Espaciado desde la parte superior */
+    margin-bottom: 20px;
+    position: sticky; 
+    bottom: 0;  
+    background-color: white; 
+    width: 100%;  
+    padding: 10px 0;  
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo base para los botones Anterior y Siguiente */
+.btn-list-nav button, .btn-new-user {
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin: 0 5px; /* Espaciado horizontal entre elementos */
+}
+
+/* Estilo para el botón al pasar el cursor por encima */
+.btn-list-nav button:hover, .btn-new-user:hover {
+    background-color: #0056b3;
+}
+
+/* Estilo para el botón cuando está desactivado */
+.btn-list-nav button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Estilo para el indicador de página */
+.btn-list-nav span {
+    font-size: 16px;
+    font-weight: bold; /* Texto en negrita */
+    margin: 0 15px;   /* Espaciado horizontal a los lados */
+}
+
+/* BOTONES DE ACCION */
+.btn-edit {
+    background-color: #4CAF50; 
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.btn-edit:hover {
+    background-color: #45a049;
+}
+
+.btn-delete {
+    background-color: #f44336; 
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.btn-delete:hover {
+    background-color: #da190b;
+}

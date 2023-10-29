@@ -53,22 +53,37 @@ export const register = async (req, res) => {
     }
 };
 
+export const registerController = async (req, res) => {
+    if (req.userData) {
+        console.log("Hay Token");
+        // Token válido proporcionado, tal vez redirigir a una página de inicio
+        /* res.redirect('/auth/dashboard'); */
+    } else {
+        console.log("Register:");
+        register();
+    }
+};
+export const loginController = async (req, res) => {
+    if (req.userData) {
+        console.log("Hay Token");
+        // Token válido proporcionado, tal vez redirigir a una página de inicio
+        /* res.redirect('/auth/dashboard'); */
+    } else {
+        login();
+    }
+};
 export const login = async (req, res) => {
     const { email, password } = req.body;
-    /* console.log(req.body); */
 
     try {
-        /* console.log(email,password); */
         const result = await loginUserService(email, password);
 
         if (result.success) {
-            console.log("Entramos");
             res.cookie("jwt", result.token, {
                 httpOnly: true,
                 secure: process.env.NODE_ENV === "production", // Asegurar la cookie si estás en producción
                 maxAge: 3600000, // 1 hora en milisegundos
             });
-
             res.send(result);
         } else {
             console.log(result.message);
@@ -105,18 +120,35 @@ export const logout = (req, res) => {
     res.send({ success: true, message: "Sesión cerrada exitosamente." });
 };
 
-export const verifyToken = (req, res, next) => {
-    const token = req.cookies.jwt;
+/* export const verifyTokenController = async (req, res) => {
+    const token = req.cookies.jwt; // Asume que estás usando una librería como cookie-parser
 
-    if (!token) {
-        return res.status(401).send({ message: "Acceso no autorizado" });
-    }
-
-    try {
-        const userPayload = jwt.verify(token, JWT_SECRET);
-        req.user = userPayload; // Guarda el payload del usuario en el objeto req
-        next();
-    } catch (error) {
-        res.status(401).send({ message: "Token inválido" });
+    const verificationResult = await verifyToken(token);
+    if (verificationResult.success) {
+        res.status(200).send({ authenticated: true, user: verificationResult.user});
+    } else {
+        res.status(401).send({
+            authenticated: false,
+            error: verificationResult.error,
+        });
     }
 };
+
+export const optionalTokenVerification = async (req, res, next) => {
+    const token = req.cookies.jwt; // Asume que estás usando una librería como cookie-parser
+    console.log("token:",token);
+    if (token) {
+        const verificationResult = await verifyToken(token);
+        if (verificationResult.success) {
+            req.userData = verificationResult.user; // Almacena los datos del usuario en req para uso posterior
+        } else {
+            console.error(
+                "Token verification failed:",
+                verificationResult.error
+            );
+            res.clearCookie("jwt"); // Opcional: podrías querer limpiar la cookie si el token es inválido
+        }
+    }
+    next(); // Pasa al siguiente middleware o ruta
+};
+ */

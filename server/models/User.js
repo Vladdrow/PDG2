@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt';
+import bcrypt from "bcrypt";
 
 class User {
     constructor(id, email, password, confirmPassword) {
@@ -6,20 +6,28 @@ class User {
         this.email = email;
         this.password = password;
         this.confirmPassword = confirmPassword;
-/*         this.passwordResetToken = null;
+        /*         this.passwordResetToken = null;
         this.passwordResetTokenExpiry = null; */
         this.nombre = "";
         this.apellidoPaterno = "";
         this.apellidoMaterno = "";
         this.createdAt = new Date();
         this.updatedAt = new Date();
-        this.isEditor = false;  // Campo para determinar si es editor
+        this.isEditor = false; // Campo para determinar si es editor
         this.occupation = null;
     }
 
     setNombreCompleto(nombre, apellidos) {
         this.nombre = nombre.trim();
-        [this.apellidoPaterno, this.apellidoMaterno] = apellidos.trim().split(" ");
+        const apellidosArray = apellidos.trim().split(" ");
+
+        if (apellidosArray.length === 1) {
+            this.apellidoPaterno = apellidosArray[0];
+            this.apellidoMaterno = "";
+        } else if (apellidosArray.length >= 2) {
+            this.apellidoPaterno = apellidosArray[0];
+            this.apellidoMaterno = apellidosArray.slice(1).join(" ");
+        }
     }
 
     setIsEditor(esEditor) {
@@ -59,11 +67,11 @@ class User {
         const salt = await bcrypt.genSalt(saltRounds);
         this.password = await bcrypt.hash(rawPassword, salt);
     }
-    
+
     async checkHashedPassword(rawPassword) {
         return await bcrypt.compare(rawPassword, this.password);
     }
-    
+
     /* changePassword(currentPassword, newPassword) {
         if (
             this.checkPassword(currentPassword) &&

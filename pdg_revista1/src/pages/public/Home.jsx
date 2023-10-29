@@ -4,7 +4,12 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 
 import "../../assets/css/desktop/pages/home.css";
-import { getHomePageData } from "../../api/content.api";
+import {
+    getBookData,
+    getCompaniesData,
+    getSectionsData,
+    getEditorsData,
+} from "../../api/content.api";
 
 /* import LogoVer from "../../assets/img/logos/logo-ver.jpg"; */
 /* import LogoHor from "../assets/img/logos/logo-hor.jpg"; */
@@ -26,44 +31,48 @@ import ImageSections from "../../components/Card/ImageSections";
 import TeamMember from "../../components/Body/components/TeamMember";
 import B_ImageInfo from "../../components/Body/components/B_ImageInfo";
 import B_DescriptionInfo from "../../components/Body/components/B_DescriptionInfo";
+import config from "../../../config";
 
 function Home() {
-    const baseURL = "http://192.168.18.228:3010";
-    const [selectedImage, setSelectedImage] = useState(null);
+    const myIp = config.ipAddress;
+    const baseURL = `http://${myIp}:3010`;
 
+    const [selectedImage, setSelectedImage] = useState(null);
     const [guideInfoDB, setGuideInfo] = useState({});
     const [companiesImgDB, setCompaniesImg] = useState([]);
     const [imgSectionsDB, setImgSections] = useState([]);
     const [teamMembersDB, setTeamMembers] = useState([]);
+    const [socialNetworks, setSocialNetworks] = useState([]);
 
     const randomSection = Math.floor(Math.random() * 25) + 1;
+
     useEffect(() => {
         const fetchData = async () => {
             try {
-                console.log("Dentro");
-                const response = await getHomePageData();
-                const data = response.data;
-                const fullBookImagePath = `${baseURL}/assets/${data.book.RutaImagen}`;
-                data.book.RutaImagen = fullBookImagePath;
-                /* console.log(fullBookImagePath);*/
-                /* /* console.log("response: ", response); */
+                const bookData = await getBookData();
+                const bookImage = `${baseURL}/assets/${bookData.RutaImagen}`;
+                bookData.RutaImagen = bookImage;                
+                setGuideInfo(bookData);
 
-                console.log("data: ", data);
-                setGuideInfo(data.book);
+                const companiesData = await getCompaniesData();
                 setCompaniesImg(
-                    data.companies.map((company) => ({
+                    companiesData.map((company) => ({
                         ...company,
                         RutaArchivo: `${baseURL}/assets/${company.RutaArchivo}${company.NombreArchivo}`,
                     }))
                 );
+
+                const sectionsData = await getSectionsData();
                 setImgSections(
-                    data.sections.map((section) => ({
+                    sectionsData.map((section) => ({
                         ...section,
                         RutaImagen: `${baseURL}/assets/${section.RutaImagen}${section.NombreImagen}`,
                     }))
                 );
+
+                const editorsData = await getEditorsData();
                 setTeamMembers(
-                    data.editors.map((editor) => ({
+                    editorsData.map((editor) => ({
                         ...editor,
                         RutaImagen: `${baseURL}/assets/${editor.RutaImagen}${editor.NombreImagen}`,
                     }))
@@ -73,11 +82,7 @@ function Home() {
                 console.error("Hubo un error al obtener los datos:", error);
             }
         };
-
         fetchData();
-        console.log("companies", companiesImgDB[4]);
-        console.log("sections", imgSectionsDB[4]);
-        console.log("team", teamMembersDB[4]);
     }, []);
 
     /* const GuideDB = require(guideInfoDB.RutaImagen); */
@@ -115,55 +120,7 @@ function Home() {
         },
     ];
 
-    const imageLinks = [
-        {
-            image: LogoPrueba,
-            link: "https://www.facebook.com",
-        },
-        {
-            /* image:  */
-            link: "https://www.youtube.com",
-        },
-        {
-            image: LogoPrueba,
-            link: "https://www.twitter.com",
-        },
-        {
-            /* image: LogoVer, */
-            link: "https://www.instagram.com",
-        },
-        {
-            image: LogoPrueba,
-            link: "https://www.twitch.com",
-        },
-    ];
-
-    const LogoSocialMedia = [Facebook, Instagram];
-
-    const SocialLinks = [
-        {
-            social_media: Facebook,
-            link: "https://www.facebook.com",
-        },
-        {
-            social_media: Instagram,
-            link: "https://www.instagram.com",
-        },
-    ];
-
-    const images2 = [
-        /* LogoVer,
-        "../assets/img/logos/logo-prueba", */
-        LogoPrueba,
-        "../assets/img/logos/logo-prueba",
-        /*LogoVer */
-    ];
-
     const NewUserPages = [
-        /* {
-            NamePage: "Inicio",
-            ToPage: "/",
-        }, */
         {
             name: "Explorar",
             path: "/explore",
@@ -174,7 +131,7 @@ function Home() {
         },
         {
             name: "Contáctanos",
-            path: "#footer",
+            path: "/contact",
         },
         {
             name: "Registrarse",
@@ -185,100 +142,9 @@ function Home() {
             path: "/login",
         },
     ];
-
-    const ImgSections = [
-        {
-            name: "Sec1",
-            src: Contenedor,
-            alt: "Img1",
-            desc: "Description1",
-            link: "#",
-        },
-        {
-            name: "Sec2",
-            src: Engranaje,
-            alt: "Img2",
-            desc: "Description2",
-            link: "#",
-        },
-        {
-            name: "Sec3",
-            src: Contenedor,
-            alt: "Img3",
-            desc: "Description3",
-            link: "#",
-        },
-        {
-            name: "Sec4",
-            src: Engranaje,
-            alt: "Img4",
-            desc: "Description4",
-            link: "#",
-        },
-        {
-            name: "Sec5",
-            src: Contenedor,
-            alt: "Img5",
-            desc: "Description5",
-            link: "#",
-        },
-        {
-            name: "Sec6",
-            src: Engranaje,
-            alt: "Img6",
-            desc: "Description6",
-            link: "#",
-        },
-        {
-            name: "Sec7",
-            src: Contenedor,
-            alt: "Img7",
-            desc: "Description7",
-            link: "#",
-        },
-        {
-            name: "Sec8",
-            src: Engranaje,
-            alt: "Img8",
-            desc: "Description8",
-            link: "#",
-        },
-    ];
-
-    const teamMembers = [
-        {
-            photoSrc: LogoUser,
-            name: "Renzo Valencia G.",
-            description: "Desarrollador Senior",
-        },
-        {
-            photoSrc: LogoUser,
-            name: "Damian Valencia G.",
-            description: "Desarrollador SemiSenior",
-        },
-        {
-            photoSrc: LogoUser,
-            name: "Vlad Valencia G.",
-            description: "Desarrollador Junior",
-        },
-        {
-            photoSrc: LogoUser,
-            name: "Vlad Valencia G.",
-            description: "Desarrollador Junior",
-        },
-    ];
-
-    const guide_info = {
-        name: "VII GUÍA EMPRESARIAL DE LOGÍSTICA",
-        description:
-            "En julio de 2014, lanzamos a circulación nuestra primera edición de la revista 'Logística & Negocios Internacionales', destinada a cubrir una necesidad de información especializada para orienta y actualizar a profesionales y empresarios vinculados al rubro logramos una rápida y efectiva aceptación en el público lector, gracias al staff de colaboradores quienes apoyan en una acertada planificación de contenido. " +
-            "Luego de tres años de vigencia, al detectar que hacía falta un directorio de las principales empresas e instituciones vinculadas al rubro y, a solicitud de nuestros suscriptores, es que decidimos publicar la Guía Empresarial de Logística, con información ordenada, clasificada y sistematizada, que sirviera como una base de datos actualizada para importadores y exportadores, así como a todo profesional interesado en ingresar al negocio logístico.",
-        src: Guide,
-        link: "https://logistica-ni.com/guia-empresarial-2023/",
-    };
     return (
         <>
-            <Header Pages={NewUserPages}isHome={true}/* user={User} */ />
+            <Header Pages={NewUserPages} isHome={true} /*  User={User}  */ />
             <main id="home">
                 <section id="guide-year-section">
                     <article className="article-guide">
@@ -294,6 +160,7 @@ function Home() {
                         />
                     </article>
                 </section>
+
                 <section
                     id="featured-companies-section"
                     className="sects-home ads-carousel"
@@ -303,21 +170,22 @@ function Home() {
                     </div>
                     <ImgCarousel images={companiesImgDB} />
                 </section>
+
                 <section id="guide-sections">
                     <article className="sects-home guide-sects">
                         <div className="title-sections">
                             <h2>SECTIONS</h2>
                         </div>
                         <ImageSections
-                            
                             images={imgSectionsDB}
                             onSelectImage={setSelectedImage}
                         />
                     </article>
                 </section>
+
                 <section id="information-section">
                     <article className="sect-info">
-                      º  <B_DescriptionInfo
+                        <B_DescriptionInfo
                             title={
                                 selectedImage
                                     ? selectedImage.Nombre
@@ -336,10 +204,10 @@ function Home() {
                             buttonText="Explorar"
                         />
                         <B_ImageInfo
-                        link={
+                            link={
                                 selectedImage
-                                    ? selectedImage.link    
-                                    : ImgSections[0].link
+                                    ? selectedImage.link
+                                    : "#" /* ImgSections[0].link */
                             }
                             src={
                                 selectedImage
@@ -351,15 +219,18 @@ function Home() {
                         />
                     </article>
                 </section>
-                <section className="our-team">
+
+                <section id="our-team">
                     <div className="title-our-team">
                         <h2>OUR TEAM</h2>
                     </div>
-                    {teamMembersDB.slice(0, 3).map((member, index) => (
-                        <TeamMember key={index} {...member} />
-                    ))}
+                    <div className="members">
+                        {teamMembersDB.slice(0, 3).map((member, index) => (
+                            <TeamMember key={index} {...member} />
+                        ))}
+                    </div>
                     <div className="cont-btn">
-                        {teamMembers.length > 3 && (
+                        {teamMembersDB.length > 3 && (
                             <a
                                 className="btn-more-team btn btn-danger m-2"
                                 onClick={() =>
@@ -372,7 +243,7 @@ function Home() {
                     </div>
                 </section>
             </main>
-            <Footer socialLinks={SocialLinks} navLinks={NavLinks} />
+            <Footer showNetwork={true} />
         </>
     );
 }

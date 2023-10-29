@@ -3,7 +3,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 30px;
+    padding: 10px 10px;
     background-color: #f7f7f7;
 }
 
@@ -133,7 +133,7 @@
 .dropdown-content {
     position: absolute;
     right: 0; /* Alinear a la derecha */
-    top: 130%; /* Justo debajo del botón */
+    top: 38px; /* Justo debajo del botón */
     background-color: #f9f9f9;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
@@ -163,6 +163,7 @@
     .logo-container {
         min-width: 20%;
     }
+
 }
 
 @media (max-width: 768px) {
@@ -209,5 +210,8 @@
     .dropbtn p {
         margin-bottom: 0px;
         display: none;
+    }
+    .dropdown-content{
+        top: 30px;
     }
 }

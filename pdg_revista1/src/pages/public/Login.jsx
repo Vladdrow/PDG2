@@ -9,12 +9,11 @@ import Logistica from "../../assets/resources/pages/login/transporte.jpg";
 /* Components */
 import B_FormWelcome from "../../components/Body/components/B_FormWelcome";
 import LoadingOverlay from "../../components/Global/LoadingOverlay";
+import InputField from "../../components/Form/InputField";
 
 function Login() {
     const navigate = useNavigate();
     const { login: loginAuth, user: userAuth } = useAuth();
-    /*"De useAuth(), extrae la propiedad login y 
-    asígnala a una nueva variable llamada loginAuth". */
     const [formData, setFormData] = useState({
         email: "",
         password: "",
@@ -42,7 +41,7 @@ function Login() {
             if (response.data.success) {
                 loginAuth(response.data.userDataDB);
                 /* console.log("Success: ", userAuth); */
-                navigate("/auth/dashboard");
+                navigate("/auth/logistics-entities");
             }
             console.log(response.data.message);
             // Por ejemplo: redirigir al dashboard
@@ -75,37 +74,25 @@ function Login() {
                     <h2 className="card-title text-center mb-4 pt-3">
                         Inicio de Sesión
                     </h2>
-                    <form onSubmit={handleSubmit}>
-                        <div className="box-inp mb-3">
-                            <label htmlFor="email" className="form-label">
-                                Correo Electrónico:
-                            </label>
-                            <input
-                                type="email"
-                                className="form-control"
-                                id="email"
-                                name="email"
-                                value={formData.email}
-                                onChange={handleChange}
-                                required
-                                placeholder="Ingresa tu correo electrónico"
-                            />
-                        </div>
-                        <div className="box-inp mb-3">
-                            <label htmlFor="password" className="form-label">
-                                Contraseña:
-                            </label>
-                            <input
-                                type="password"
-                                className="form-control"
-                                id="password"
-                                name="password"
-                                value={formData.password}
-                                onChange={handleChange}
-                                required
-                                placeholder="Ingresa tu contraseña"
-                            />
-                        </div>
+                    <form onSubmit={handleSubmit}>                        
+                        <InputField 
+                            type="email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            placeholder="Ingresa tu correo electrónico"
+                            label="Correo Electrónico:"
+                            divclass="box-inp"
+                        />
+                        <InputField 
+                            type="password"
+                            name="password"
+                            value={formData.password}
+                            onChange={handleChange}
+                            placeholder="Ingresa tu contraseña"
+                            label="Contraseña:"
+                            divclass="box-inp"
+                        />
                         {error && (
                             <div className="alert alert-danger">{error}</div>
                         )}

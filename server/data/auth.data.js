@@ -18,15 +18,9 @@ export const saveUserToDb = async (user) => {
             "INSERT INTO Usuario (CorreoElectronico, Contrasena, RutaImagen, NombreImagen, TipoUsuario, FechaRegistro) VALUES (?,?,?,?,?,?)",/* Añadiendo campos dep prueba */
             [email, password,"users/", `user${Math.floor(Math.random() * 4) + 1}.svg`,isEditor ? "1" : "2", new Date()]
         );
-        console.log(resultUsuario[0]);
         const UsuarioID = resultUsuario[0].insertId;
 
         const userTypeTable = isEditor ? "Editor" : "Lector";
-        /* console.log(userTypeTable)
-        await pool.query(
-            `INSERT INTO ${userTypeTable} (UsuarioID, Nombre, ApellidoPaterno, ApellidoMaterno, Rol, Descripcion) VALUES (?,?,?,?,?,?)`,
-            [UsuarioID, nombre, apellidoPaterno, apellidoMaterno, "Comercio Exterior", "Alto, flaco de ojos verdes, etc, etc"]
-        ); */
         let sql = `INSERT INTO ${userTypeTable} (UsuarioID, Nombre, ApellidoPaterno, ApellidoMaterno`;
         const values = [UsuarioID, nombre, apellidoPaterno, apellidoMaterno];
 
@@ -50,9 +44,17 @@ export const saveUserToDb = async (user) => {
     }
 };
 
+export const getUserById = async (id) => {
+    const [results] = await pool.query(
+        "SELECT ID, CorreoElectronico, Contrasena, BloqueoTemporal, IntentosFallidos FROM Usuario WHERE CorreoElectronico = ?",
+        [email]
+    );
+    return results[0];
+}
 export const getUserByEmail = async (email) => {
     const [results] = await pool.query(
-        "SELECT ID, CorreoElectronico, Contrasena, BloqueoTemporal FROM Usuario WHERE CorreoElectronico = ?",
+        /* "SELECT u.ID, u.CorreoElectronico, u.Contrasena, u.NombreImagen, u.RutaImagen, l.Nombre, l.ApellidoPaterno, l.ApellidoMaterno FROM Usuario u JOIN Lector l ON u.ID = l.usuarioID", */
+        "SELECT ID, CorreoElectronico, Contrasena, BloqueoTemporal, IntentosFallidos FROM Usuario WHERE CorreoElectronico = ?",
         [email]
     );
     return results[0];
@@ -80,7 +82,15 @@ export const getUserAdditionalDetails = async (userId, userType) => {
         `SELECT * FROM ${tableName} WHERE UsuarioID = ?`,
         [userId]
     );
-    return results[0];
+
+    // Filtrar los campos que deseas excluir (los dos primeros campos)
+    const filteredResults = results.map((row) => {
+        // Crear un nuevo objeto excluyendo los dos primeros campos
+        const { ID, UsuarioID, ...restOfData } = row;
+        return restOfData;
+    });
+
+    return filteredResults[0];
 };
 
 export const updateLastAccess = async (userId) => {
@@ -95,16 +105,16 @@ export const incrementFailedAttempts = async (userId) => {
         "SELECT IntentosFallidos FROM Usuario WHERE ID = ?",
         [userId]
     );
-    const failedAttempts = user[0].IntentosFallidos;
-
+    let failedAttempts = user[0].IntentosFallidos;
     if (failedAttempts >= 4) {
         await pool.query(
             "UPDATE Usuario SET BloqueoTemporal = DATE_ADD(?, INTERVAL 1 MINUTE) WHERE ID = ?",
             [new Date(), userId]
-        );
-    }
+            );
+        }
+    failedAttempts+=1;
     await pool.query("UPDATE Usuario SET IntentosFallidos = ? WHERE ID = ?", [
-        failedAttempts + 1,
+        failedAttempts,
         userId,
     ]);
 };
@@ -124,7 +134,7 @@ export const storeKeyForUserWithSalt = async (userId) => {
 
     // Guardar en Llave_Usuario
     await pool.query(
-        "INSERT INTO Llave_Usuario (LectorID, LlaveEncriptada, FirmaLlave, Estado, FechaCreacion) VALUES (?, ?, ?, ?, ?)",
+        "INSERT INTO Llave_Usuario (UsuarioID, LlaveEncriptada, FirmaLlave, Estado, FechaCreacion) VALUES (?, ?, ?, ?, ?)",
         [userId, key, salt, "1", new Date()]
     );
 
@@ -139,7 +149,7 @@ export const storeKeyForUserWithSalt = async (userId) => {
 //Verificar si tiene una llave activa
 export const hasActiveKey = async (userId) => {
     const [results] = await pool.query(
-        "SELECT * FROM Llave_Usuario WHERE LectorID = ? AND Estado = '1'",
+        "SELECT * FROM Llave_Usuario WHERE UsuarioID = ? AND Estado = '1'",
         [userId]
     );
     return results.length > 0;
@@ -147,7 +157,7 @@ export const hasActiveKey = async (userId) => {
 
 export const getLastKeyGenerationDate = async (userId) => {
     const [results] = await pool.query(
-        "SELECT FechaCreacion FROM Llave_Usuario WHERE LectorID = ? ORDER BY FechaCreacion DESC LIMIT 1",
+        "SELECT FechaCreacion FROM Llave_Usuario WHERE UsuarioID = ? ORDER BY FechaCreacion DESC LIMIT 1",
         [userId]
     );
     return results[0]?.FechaCreacion;
@@ -160,7 +170,7 @@ export const getUserKey = async (userId) => {
         [userId]
     );
     if (results.length === 0) {
-        console.log("No se encontró llave para el usuario con ID:", userId);
+        /* console.log("No se encontró llave para el usuario con ID:", userId); */
         return null;
     }
     return results[0].LlaveEncriptada;

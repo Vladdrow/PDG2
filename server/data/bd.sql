@@ -8,10 +8,10 @@ VALUES (
         "https://logistica-ni.com/guia-empresarial-2023/"
     );
 SHOW DATABASES;
-
-CREATE DATABASE Guia_Empresarial_1;
-
 DROP DATABASE Guia_Empresarial_1;
+
+
+
 
 SHOW TABLES;
 
@@ -33,7 +33,7 @@ SELECT * FROM `Llave_Lector`;
 
 SELECT * FROM `Llave_Valida`;
 
-USE Guia_Empresarial_1;
+SELECT * FROM Seccion;
 
 
 SELECT * FROM `Empresa`;
@@ -51,6 +51,33 @@ JOIN Membresia_Empresa me ON e.ID = me.EmpresaID
 JOIN Archivo_Adjunto aa ON e.ID = aa.EmpresaID
 WHERE me.TipoMembresia = '2' AND aa.TipoArchivo = '1';
 --  Tablas para el sitio web
+
+
+CREATE DATABASE Guia_Empresarial_1;
+USE Guia_Empresarial_1;
+
+DROP TABLE Red_Social;
+INSERT INTO Red_Social (Nombre, RutaImagen, NombreImagen, Url)
+VALUES
+    ('Discord', 'web/icon/social_networks/', 'logo_discord.png','https://www.discord.com'),
+    ('Facebook', 'web/icon/social_networks/', 'logo_facebook.png','https://www.facebook.com'),
+    ('Instagram', 'web/icon/social_networks/', 'logo_instagram.png','https://www.instagram.com'),
+    ('Tiktok', 'web/icon/social_networks/', 'logo_tiktok.png','https://www.tiktok.com'),
+    ('Twitter', 'web/icon/social_networks/', 'logo_twitter.png','https://www.twitter.com'),
+    ('Youtube', 'web/icon/social_networks/', 'logo_youtube.png','https://www.youtube.com');
+
+
+CREATE DATABASE Guia_Empresarial_1;
+USE Guia_Empresarial_1;
+
+CREATE TABLE Red_Social(
+    ID INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    Nombre VARCHAR(50) NOT NULL,
+    RutaImagen VARCHAR(100) NOT NULL,
+    NombreImagen VARCHAR(100) NOT NULL,
+    Url VARCHAR(255) NOT NULL
+);
+
 
 CREATE TABLE
     Libro (
@@ -93,7 +120,7 @@ CREATE TABLE
         UsuarioID INT UNSIGNED UNIQUE,
         Nombre VARCHAR(100),
         ApellidoPaterno VARCHAR(100),
-        ApellidoMaterno VARCHAR(100),
+        ApellidoMaterno VARCHAR(100) DEFAULT NULL,
         /* RutaImagen VARCHAR(255) NULL, */
         Rol VARCHAR(100) NOT NULL,
         Descripcion TEXT NULL,
@@ -108,7 +135,7 @@ CREATE TABLE
         UsuarioID INT UNSIGNED UNIQUE,
         Nombre VARCHAR(100),
         ApellidoPaterno VARCHAR(100),
-        ApellidoMaterno VARCHAR(100),
+        ApellidoMaterno VARCHAR(100) DEFAULT NULL,
         /* RutaImagen VARCHAR(255) NULL, */
         FOREIGN KEY (UsuarioID) REFERENCES Usuario(ID)
     );

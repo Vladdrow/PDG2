@@ -1,11 +1,17 @@
 import React, { createContext, useContext, useState } from "react";
 import UserFrontend from "../models/UserFrontend";
+/* import { verifyTokenApi } from "../api/auth.api"; */
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+/*     var xhr = new XMLHttpRequest();
+    xhr.open("GET", "http://192.168.58.228:3010/verify", true);
+    xhr.withCredentials = true;
+    xhr.send(); */
 
     const login = (userData) => {
         // Crear una instancia de UserFrontend
@@ -23,6 +29,8 @@ export const AuthProvider = ({ children }) => {
         userInstance.setIsPremium(userData.IsPremium);
         userInstance.fechaRegistro = userData.FechaRegistro;
         userInstance.fechaUltimoAcceso = userData.FechaUltimoAcceso;
+        userInstance.rutaImagen = userData.RutaImagen;
+        userInstance.nombreImagen = userData.NombreImagen;
 
         // Establecer el usuario en el estado
         setUser(userInstance);
@@ -33,9 +41,26 @@ export const AuthProvider = ({ children }) => {
         setUser(null);
         setIsAuthenticated(false);
     };
+/*     const verifyToken = async () => {
+        try {
+            const response = await verifyTokenApi();
+            if (response.data.success) {
+                setUser(response.data.user);
+                console.log("usuario del token: ", response.data.user);
+                setIsAuthenticated(true);
+            } else {
+                setUser(null);
+                setIsAuthenticated(false);
+            }
+        } catch (error) {
+            console.error("Error verifying token:", error);
+        }
+    }; */
 
     return (
-        <AuthContext.Provider value={{ user, isAuthenticated, login, logout }}>
+        <AuthContext.Provider
+            value={{ user, isAuthenticated, login, logout }}
+        >
             {children}
         </AuthContext.Provider>
     );

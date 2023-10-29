@@ -1,0 +1,71 @@
+#contact {
+    margin-top: 0;
+    text-align: center;
+    background-color: rgba(3, 3, 44, 0.5);
+
+    padding: 20px; /* Espacio alrededor */
+    max-width: 1024px; /* Ancho máximo establecido */
+    width: fit-content;
+    margin: 0 auto; /* Centrar el contenedor si es menor que el ancho de la ventana del navegador */
+}
+
+#contact .soc-networks {
+    display: flex;
+    flex-wrap: wrap; /* Permite que los elementos se envuelvan a la siguiente línea cuando no haya espacio */
+    justify-content: space-between; /* Espacia los elementos uniformemente */
+    align-items: center; /* Alinea los elementos verticalmente en el centro */
+}
+
+#contact .soc-networks .social-item {
+    flex-basis: calc(
+        33.33% - 20px
+    ); /* Divide el contenedor en tercios, restando los márgenes */
+    margin: 20px 0px; /* Espacio alrededor de cada elemento */
+    padding: 10px 20px;
+    box-sizing: border-box; /* Asegura que el padding y el margin no aumenten el tamaño del elemento */
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    min-width: 315px;
+}
+
+#contact .soc-networks .social-item img {
+    max-width: 100%; /* Asegura que la imagen no exceda el tamaño de su contenedor */
+    height: auto; /* Mantiene la proporción de la imagen */
+}
+
+#contact .soc-networks .social-item .soc-it-div {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-bottom: 20px;
+}
+#contact .soc-networks .social-item h2 {
+    text-align: center;
+    margin: 0 !important;
+}
+.social-item .soc-it-div img {
+    width: 20%;
+}
+
+/* #prueba {
+    background-color: aqua;
+    height: 1000px;
+} */
+/* Media query para tabletas */
+/* Media query para tabletas */
+@media (max-width: 768px) {
+    #contact {
+        max-width: 768px;
+    }
+    #contact .soc-networks .social-item {
+        flex-basis: calc(50% - 20px); /* Restar margen para asegurar que se acomoden de dos en dos */
+    }
+}
+
+/* Media query para teléfonos móviles */
+@media (max-width: 680px) {
+    #contact .soc-networks {
+        justify-content: center;
+        margin: 0; /* Centrar los contenedores .social-item */
+    }
+}

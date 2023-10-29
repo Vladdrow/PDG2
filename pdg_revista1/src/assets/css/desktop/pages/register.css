@@ -1,4 +1,5 @@
 .container {
+    width: 100%;
     padding-left: 0;
     padding-right: 0;
 }
@@ -65,4 +66,58 @@
     .box-inp.row input[type="password"] {
         width: 100%;
     }
+}
+
+
+
+/* REGISTER 'EDITOR' */
+/* Estilo para el bloque de campos adicionales (editor-fields) */
+.editor-fields {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out;
+    padding-left: 0;
+    padding-right: 0;
+    opacity: 0;
+}
+
+.editor-fields.open {
+    max-height: 300px; /* Puedes ajustar este valor según tus necesidades */
+    opacity: 1;
+}
+
+/* Estilo para el label e input del editor */
+.label-check-editor {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+/* Estilo para el select de roles */
+#role {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 5px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+/* Estilo para la descripción */
+#description {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 5px;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif; /* Puedes ajustar a tu fuente preferida */
+    font-size: 14px;
+    resize: vertical; /* Permite al usuario ajustar el tamaño verticalmente */
+    max-height: 150px; /* Limita el tamaño máximo del textarea */
+}
+
+/* Espaciado entre los elementos dentro de .editor-fields */
+.editor-fields div {
+    margin-bottom: 10px;
 }

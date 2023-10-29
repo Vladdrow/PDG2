@@ -1,44 +1,58 @@
-.our-team{
-    width: 100%;
-}
 .team-member {
-    width: fit-content; /* Para mostrar 3 elementos por fila */
-    box-sizing: border-box;
-    margin-bottom: 20px;
-    margin: 0px 5px;
-}
-.cont-1-team {
-    /* border: 1px solid #fff; */
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    height: 100px;
-    margin-bottom: 10px;
-}
-.photo-pers {
-    background-color: #ffb9b9;
-    border-radius: 10%;
-    width: 100px;
+    flex-direction: column;
+    margin: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    border-radius: 8px;
     overflow: hidden;
-    border: 2px solid #4e4a4a;
+    width: calc(33.333% - 20px); /* Ajusta el ancho, restando el margen */
 }
-.photo-pers img {
-    height: 100%;
-    width: 100%;
-}
-.name-pers {
-    margin-left: 20px;
-    width: 60%;
+/* Estilo para el contenedor de la imagen y el nombre */
+.cont-1-team {
     display: flex;
     align-items: center;
 }
-.name-pers h3 {
-    font-weight: bold;
+
+/* Estilo para la imagen */
+.cont-1-team img {
+    flex-shrink: 0;
+    width: 100px;
+    height: 100px;
 }
-.desc-pers {
-    /* border: 1px solid #fff; */
-    margin-top: 10px;
-    text-align: center;
+
+
+.cont-1-team h3 {
+    margin: 0 0 0 10px;
     width: 100%;
-    padding: 0px 20px;
+}
+
+.desc-pers {
+    background-color: #f0f0f0;
+    text-align: center;
+    padding: 10px;
+}
+
+
+@media screen and (min-width: 520px) and (max-width: 767px) {
+    /* Estilos específicos para tablet */
+/*     .container {
+        width: 80%;
+        margin: 0 auto;
+    } */
+}
+
+/* Media Query para tablet (768px - 991px) */
+@media screen and (min-width: 768px) {
+    /* Estilos específicos para tablet */
+/*     .container {
+        width: 80%;
+        margin: 0 auto;
+    } */
+}
+
+
+/* Media Query para pantallas de PC (más de 992px) */
+@media screen and (min-width: 1024px) {
+    /* Estilos específicos para PC */
+/* =  */
 }

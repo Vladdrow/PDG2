@@ -6,6 +6,8 @@ class UserFrontend extends User {
         this.isPremium = false;
         this.fechaUltimoAcceso = "";
         this.fechaRegistro = "";
+        this.rutaImagen = "";
+        this.nombreImagen = "";
     }
 
     setIsPremium(isPremium) {

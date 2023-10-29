@@ -10,7 +10,15 @@ class User {
 
     setNombreCompleto(nombre, apellidos) {
         this.nombre = nombre.trim();
-        [this.apellidoPaterno, this.apellidoMaterno] = apellidos.trim().split(" ");
+        const apellidosArray = apellidos.trim().split(" ");
+    
+        if (apellidosArray.length === 1) {
+            this.apellidoPaterno = apellidosArray[0];
+            this.apellidoMaterno = "";
+        } else if (apellidosArray.length >= 2) {
+            this.apellidoPaterno = apellidosArray[0];
+            this.apellidoMaterno = apellidosArray.slice(1).join(" ");
+        }
     }
 
     setIsEditor(esEditor) {

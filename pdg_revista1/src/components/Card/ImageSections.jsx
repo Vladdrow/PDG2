@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
+import { useSwipeable } from "react-swipeable";
 
 import CarouselDots from "./CarouselDots";
-import "../../assets/css/desktop/components/imagesections.css"
+import "../../assets/css/desktop/components/imagesections.css";
 /* import Contenedor from "../../../assets/resources/secciones/contenedor.png";
 import Engranaje from "../../../assets/resources/secciones/engranaje.png"; */
 
@@ -10,16 +11,28 @@ function ImageSections({ images, onSelectImage }) {
     const [activeGroup, setActiveGroup] = useState(0);
     const groups = Math.ceil(images.length / itemsPerGroup);
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setActiveGroup((prevGroup) => (prevGroup + 1) % groups);
-        }, 5000);
+    const nextGroup = () => {
+        setActiveGroup((prevGroup) => (prevGroup + 1) % groups);
+    };
 
+    const prevGroup = () => {
+        setActiveGroup((prevGroup) =>
+            prevGroup === 0 ? groups - 1 : prevGroup - 1
+        );
+    };
+
+    useEffect(() => {
+        const interval = setInterval(nextGroup, 5000);
         return () => clearInterval(interval);
     }, [groups]);
 
+    const handlers = useSwipeable({
+        onSwipedLeft: () => nextGroup(),
+        onSwipedRight: () => prevGroup(),
+    });
+
     return (
-        <div className="img-sections">
+        <div className="img-sections" {...handlers}>
             <div
                 className="carousel-container-gs"
                 style={{ transform: `translateX(-${activeGroup * 100}%)` }}

@@ -25,9 +25,16 @@ const Header = ({ Pages, User = null, isHome = false }) => {
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-    const renderNavLinks = (showAll = true, specificIndex = null) => (
+    const renderNavLinks = (
+        showAll = true,
+        specificIndex = null,
+        omitFromEnd = 0
+    ) => (
         <>
-            {(showAll ? Pages : [Pages[specificIndex]]).map((page, index) => (
+            {(showAll
+                ? Pages.slice(0, Pages.length - omitFromEnd)
+                : [Pages[specificIndex]]
+            ).map((page, index) => (
                 <a key={index} href={page.path} className="nav-link">
                     {page.name}
                 </a>
@@ -72,11 +79,13 @@ const Header = ({ Pages, User = null, isHome = false }) => {
     return (
         <header className="site-header">
             <div className="logo-container">
-                <img
-                    src={LogoLogistica}
-                    alt="Logo del sitio"
-                    className="site-logo"
-                />
+                <a href="/">
+                    <img
+                        src={LogoLogistica}
+                        alt="Logo del sitio"
+                        className="site-logo"
+                    />
+                </a>
             </div>
             <nav className="site-nav">
                 {isHome && !User && isMobile && (
@@ -105,7 +114,8 @@ const Header = ({ Pages, User = null, isHome = false }) => {
                 )}
                 {User && !isMobile && (
                     <>
-                        {renderNavLinks()}
+                        {renderNavLinks(true, null, 2)}{" "}
+                        {/* Aquí se omite las dos últimas páginas */}
                         {renderUserInfo()}
                     </>
                 )}

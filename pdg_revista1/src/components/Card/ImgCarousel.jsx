@@ -4,8 +4,7 @@ import RowLeft from "../../assets/svg/left-circle.svg";
 import RowRight from "../../assets/svg/right-circle.svg";
 
 import CarouselDots from "./CarouselDots";
-import "../../assets/css/desktop/components/imgcarousel.css"
-
+import "../../assets/css/desktop/components/imgcarousel.css";
 
 const ImgCarousel = ({ images }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -21,9 +20,13 @@ const ImgCarousel = ({ images }) => {
     };
 
     useEffect(() => {
-        const interval = setInterval(nextSlide, 5000);
+        const interval = setInterval(nextSlide, 2000);
+        images.forEach((image) => {
+            const img = new Image();
+            img.src = image.RutaArchivo;
+        });
         return () => clearInterval(interval);
-    }, [images]);  // Añadido la dependencia images para asegurarse de que el useEffect se ejecute si images cambia
+    }, [images]);
 
     return (
         <div className="carousel">
@@ -36,15 +39,14 @@ const ImgCarousel = ({ images }) => {
                         key={index}
                         href={image.link}
                         target="_blank"
-                        rel="noopener noreferrer"  // Añadido por seguridad al usar target="_blank"
+                        rel="noopener noreferrer"
                         className={`carousel-slide ${
-                            index === currentIndex ? "active" : ""
+                            index === currentIndex ? "active" : "inactive"
                         }`}
                         style={{
                             backgroundImage: `url(${image.RutaArchivo})`,
-                            animation: `${
-                                index === currentIndex ? "fade-in" : "fade-out"
-                            } 1s ease-in-out`,
+                            /* transition: "opacity 1s ease-in-out", // Añadido transición de opacidad
+                            opacity: index === currentIndex ? 1 : 0, // Añadido opacidad */
                         }}
                     ></a>
                 ))}
@@ -52,11 +54,11 @@ const ImgCarousel = ({ images }) => {
                     <img src={RowRight} alt="Next slide" />
                 </button>
             </div>
-            <CarouselDots
+            {/* <CarouselDots
                 items={images}
                 activeIndex={currentIndex}
                 setActiveIndex={setCurrentIndex}
-            />
+            /> */}
         </div>
     );
 };

@@ -1,0 +1,26 @@
+.App.auth_editor_dashboard header {
+    margin: 0;
+    border-radius: 0;
+    background-color: #78b2e6;
+}
+
+.dashboard-container {
+    display: flex;
+    height: 100vh;
+}
+
+.canvas {
+    flex: 1;  /* Esto hace que el canvas tome todo el espacio restante */
+    overflow: auto; /* En caso de que haya contenido que exceda su altura */
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #fcfcfc;
+    border-left: 3px solid #818181;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.canvas h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}

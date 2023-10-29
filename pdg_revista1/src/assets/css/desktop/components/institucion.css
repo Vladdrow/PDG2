@@ -1,20 +1,21 @@
 .institucion {
     flex-grow: 1;
-    flex-basis: 400px;
+    flex: 0 1 calc(33.33% - 30px); /* 3 tarjetas por fila */
     border: 1px solid #ddd;
-    max-width: 480px;
-    width: 30%;/* Esto puedo cambiar */
-    min-width: 250px;
+    max-width: 470px;
+    width: 100%; /* Ocupará el espacio disponible, pero estará limitado por max-width y min-width */
+    min-width: 330px;
     padding: 10px;
     margin: 10px 15px;
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     background-color: #cdcdcd;
     transition: flex-grow 0.5s ease-in-out;
-    height: fit-content;
+    height: fit-content; /* Cambiado a auto para adaptarse al contenido */
+    min-height: 300px   ; /* Asegúrate de que todas las tarjetas tengan al menos este alto */
     position: relative;
+    transition: flex 0.3s ease-in-out;
 }
-
 .institucion .name-img-inst {
     display: flex;
     justify-content: space-between;
@@ -95,6 +96,23 @@
     transform: rotate(-180deg);
 }
 
+
+@media (min-width: 500px) and (max-width: 1165px) {
+    .institucion {
+        flex: 0 1 calc(50% - 30px); /* 2 tarjetas por fila */
+        transition: flex 0.3s ease-in-out;
+    }
+}
+
+/* Media query para PC */
+@media (max-width: 480px) {
+    .institucion {
+    
+        flex: 0 1 calc(100% - 30px); /* móvil por defecto */
+        transition: flex 0.3s ease-in-out;
+        /* Resto del código... */
+    }
+}
 /* .institucion p:not(.selectable) {
     user-select: none;
     -webkit-user-select: none;
@@ -140,7 +158,7 @@
 }
 
 */
-@media (max-width: 767px) {
+/* @media (max-width: 767px) {
     .institucion {
         flex-basis: 90%; 
         width: 100%;
@@ -173,3 +191,4 @@
         bottom: 5px;
     }
 }
+ */

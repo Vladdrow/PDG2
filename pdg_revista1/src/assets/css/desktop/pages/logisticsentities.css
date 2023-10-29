@@ -1,0 +1,243 @@
+/* img {
+    width: 100%;
+}
+ */
+#dashboard {
+    /* background-color: #d7c0c0; */
+    margin: 10px;
+    padding: 10px;
+}
+
+.sect-logo-ads-main {
+    display: flex;
+    padding: 10px;
+    width: 100%;
+}
+
+.sect-logo-ads-main .box {
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sect-logo-ads-main img {
+    object-fit: contain;
+    max-width: 90%;
+    max-height: 100%;
+}
+
+.sect-logo-ads-main .logo {
+    width: 30%;
+    margin: auto;
+}
+
+.sect-logo-ads-main .big-ads {
+    width: 70%;
+}
+
+.sect-pubs-ads-main {
+    display: flex;
+}
+
+.sect-pubs-ads-main .pub-ad-aside {
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    /* background-color: aqua; */
+    padding: 10px;
+    width: 75%;
+}
+
+.pub-ad-aside * {
+    margin: 1px;
+}
+
+.pub-ad-aside .frst-in-paa {
+    height: 100%;
+}
+
+.frst-in-paa .scnd-in-paa {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+}
+
+/* INSTITUCIONES */
+#dsh-empr-inst{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px 15px;
+    /* justify-content: space-between; */
+}
+
+/* Publicaciones y/o articulos */
+
+
+
+
+.sect-pubs {
+    display: flex;
+}
+
+.sect-pubs article {
+    position: relative;
+    height: 200px;
+    margin: 5px;
+    border-radius: 10px;
+    overflow: hidden;
+    z-index: 3;
+}
+
+/* .sect-pubs article .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+} */
+
+.sect-pubs article img {
+    /* position: inherit; */
+    /* height: 100%; */
+    object-fit: cover;
+    /* border-radius: 5px; */
+    z-index: 1;
+}
+
+.sect-pubs article:hover {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+}
+
+.sect-pubs article .article-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    z-index: 2;
+
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    box-sizing: border-box;
+    display: none;
+}
+
+/*Fin */
+.ads-betwn-sects {
+    display: flex;
+    justify-content: center;
+}
+.ads-betwn-sects img {
+    width: 60%;
+}
+
+.view-more-filter {
+    align-items: center;
+    border-radius: 5px;
+    background-color: #9a9797;
+    height: 50px;
+    display: flex;
+    width: 100%;
+}
+
+.view-more-filter .filter {
+    width: 50%;
+}
+.view-more {
+    height: 30px;
+    display: flex;
+    justify-content: end;
+    width: 50%;
+}
+.view-more img {
+    height: 100%;
+    width: auto;
+}
+.view-more img:hover {
+    cursor: pointer;
+    filter: invert(100%);
+}
+
+.sect-pubs-ads-main .aside {
+    width: 25%;
+    /* background-color: aquamarine; */
+    padding: 10px;
+}
+
+.sticky-aside {
+    height: 100%;
+}
+.sticky-aside .ads-aside {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+}
+
+.ads-aside .big-ads {
+    width: 100%;
+}
+
+
+/*  */
+.b-sect-info {
+    padding: 70px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+@media (max-width: 800px) {/* 768 */
+    #dashboard {
+        margin: 0px;
+        
+        /* text-align: center; */
+    }
+    .b-sect-info{
+        padding: 20px 0px;
+        flex-direction: column;
+        
+    }
+    .d-card-slide {
+        width: 100% !important;
+        margin: 10px 0px !important;
+        height: 50vh !important;
+    }
+    .d-card-slide.card-corner {
+        height: 20vh !important;
+    }
+    .d-card-slide.card-corner.disabled {
+        display: none !important;
+    }
+    .middle-card{
+        width:100% !important;
+        height: 100%;
+    }
+    #dsh-empr-inst {
+        margin: 8px 2px;
+        flex-wrap: nowrap;
+        flex-direction: column !important;
+        justify-content: center;
+        align-items: center;
+        /* width: 100%; */
+    }
+    /* .institucion {
+        width: 100%;
+    } */
+}

@@ -14,7 +14,6 @@ import {
 } from "../data/auth.data.js";
 import User from "../models/User.js";
 import jwt from "jsonwebtoken";
-import config from "../config.js";
 
 const JWT_SECRET_STR =
     "0f350ee0f7fae11cf9bd517f2db0a510353e17f37fc0658fd9f76fb604c6631899f2cd05d9e1fcd08a30ba0e31270325693c3b1ae247f83077a57b6fb6462d00"; /* = config.jwtSecret; */
@@ -38,6 +37,7 @@ export const loginUser = async (correo, contrasena) => {
 
     const currentDate = new Date();
     const bloqueoTemporal = new Date(userFromDb.BloqueoTemporal);
+    const failedAttempts = userFromDb.IntentosFallidos;
 
     const isBlocked =
         userFromDb.BloqueoTemporal && bloqueoTemporal > currentDate;
@@ -48,7 +48,8 @@ export const loginUser = async (correo, contrasena) => {
             message:
                 "Tu cuenta ha sido temporalmente bloqueada. Por favor, espera un momento y vuelve a intentarlo.",
         };
-    } else if (bloqueoTemporal <= currentDate) {
+    } else if (bloqueoTemporal <= currentDate && failedAttempts > 4) {
+        console.log("Borrando intentos fallidos");
         await clearFailedAttempts(userFromDb.ID);
     }
 
@@ -58,20 +59,20 @@ export const loginUser = async (correo, contrasena) => {
         userFromDb.Contrasena,
         null
     );
-
     if (await user.checkHashedPassword(contrasena)) {
         clearFailedAttempts(user.id);
         updateLastAccess(user.id);
 
+        /*  */
         const dataUser = await getDataUser(user.id);
         const additionalUserInfo = await getUserAdditionalDetails(
-            user.id,
-            userFromDb.TipoUsuario
+            dataUser.ID,
+            dataUser.TipoUsuario
         );
-        console.log("Antes de buscar llaves");
-        const llaveValida = await hasValidKey(user.id);
+        const isPremium = await hasValidKey(user.id);
+        /*  */
         const userPayload = {
-            id: userFromDb.ID,
+            id: dataUser.ID,
             name: additionalUserInfo.Nombre,
             userType: userFromDb.TipoUsuario,
         };
@@ -79,14 +80,15 @@ export const loginUser = async (correo, contrasena) => {
         const token = jwt.sign(userPayload, JWT_SECRET_STR, {
             expiresIn: "1h",
         }); // El token expira en 1 hora
-
+        /* res.cookie('token', token, { httpOnly: true }); */
         return buildFullUserInfo(
             dataUser,
             additionalUserInfo,
-            llaveValida,
+            isPremium,
             token
         ); // Agregamos el token a la respuesta
     } else {
+        console.log("id", user.id);
         incrementFailedAttempts(user.id);
         return { success: false, message: "Contraseña incorrecta" };
     }
@@ -136,6 +138,41 @@ export const confirmPaymentAndGenerateKey = async (userId) => {
     }
 };
 
+/* export const verifyToken = async (token) => {
+    try {
+        const decodedToken = jwt.verify(token, JWT_SECRET_STR);
+        const userId = decodedToken.id;
+
+        // Obtén los datos del usuario por su ID
+        const user = await getDataUser(userId);
+        const additionalUserInfo = await getUserAdditionalDetails(
+            user.ID,
+            user.TipoUsuario
+        );
+        const isPremium = await hasValidKey(user.id);
+        console.log(user);
+        if (!user) {
+            throw new Error("User not found");
+        }
+
+        return {
+            success: true,
+            user: {
+                ...user,
+                additionalUserInfo: additionalUserInfo,
+                isPremium: isPremium,
+            },
+        };
+    } catch (error) {
+        console.error("Token verification failed:", error);
+        return {
+            success: false,
+            error: error.message,
+        };
+    }
+}; */
+
+/* Usuario lector logeado */
 const buildFullUserInfo = (dataUser, additionalUserInfo, isPremium, token) => {
     const fullUserInfo = {
         ID: dataUser.ID,
@@ -145,6 +182,8 @@ const buildFullUserInfo = (dataUser, additionalUserInfo, isPremium, token) => {
         ApellidoMaterno: additionalUserInfo.ApellidoMaterno,
         IsEditor: dataUser.TipoUsuario === "1" ? true : false,
         IsPremium: isPremium,
+        RutaImagen: dataUser.RutaImagen,
+        NombreImagen: dataUser.NombreImagen,
         FechaUltimoAcceso: dataUser.FechaUltimoAcceso,
         FechaRegistro: dataUser.FechaRegistro,
     };

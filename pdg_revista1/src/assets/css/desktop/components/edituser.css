@@ -1,0 +1,26 @@
+#edit-user label {
+    font-weight: bold;
+}
+
+#edit-user .id-not-edit,
+#edit-user .date-not-edit {
+    cursor: not-allowed;
+}
+
+#edit-user .box-inp {
+    margin-bottom: 0px !important;
+}
+#edit-user .left-user{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#edit-user .left-user img {
+    border-radius: 3px;
+}
+
+#edit-user .left-user,
+#edit-user .right-user {
+    width: 50% !important;
+    margin: 0px !important;
+}

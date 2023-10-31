@@ -9,6 +9,8 @@ export const saveUserToDb = async (user) => {
         nombre,
         apellidoPaterno,
         apellidoMaterno,
+        rol=null,
+        descripcion=null,
     } = user;
 
     try {
@@ -27,8 +29,8 @@ export const saveUserToDb = async (user) => {
         if (isEditor) {
             sql += `, Rol, Descripcion) VALUES (?,?,?,?,?,?)`;
             values.push(
-                "Comercio Exterior",
-                "Alto, flaco de ojos verdes, etc, etc"
+                rol,
+                descripcion
             );
         } else {
             sql += `) VALUES (?,?,?,?)`;

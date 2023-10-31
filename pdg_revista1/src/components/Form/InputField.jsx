@@ -10,12 +10,13 @@ const InputField = ({
     inpclass = "form-control",
     divclass = "col",
     validation = null,
+    options = [],
 }) => {
     return (
         <>
             <div className={divclass}>
                 <label htmlFor={name} className="form-label">
-                    {label} 
+                    {label}
                 </label>
                 <input
                     type={type}

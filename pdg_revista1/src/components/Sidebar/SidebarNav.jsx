@@ -1,7 +1,7 @@
 export const sections = [
     {
         title: "Gestión de Empresas",
-        url: "",
+        url: "entities-management",
         icon: (
             <svg
                 className="section-icon"
@@ -12,17 +12,20 @@ export const sections = [
                 <path d="M48 0C21.5 0 0 21.5 0 48V464c0 26.5 21.5 48 48 48h96V432c0-26.5 21.5-48 48-48s48 21.5 48 48v80h96c26.5 0 48-21.5 48-48V48c0-26.5-21.5-48-48-48H48zM64 240c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V240zm112-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16V240c0-8.8 7.2-16 16-16zm80 16c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H272c-8.8 0-16-7.2-16-16V240zM80 96h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16zm80 16c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16V112zM272 96h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H272c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16z" />
             </svg>
         ),
-        items: [
+        /* items: [
             { title: "Información General", url: "gestion-empresas/informacion-general" },
             { title: "Membresías", url: "gestion-empresas/membresias" },
             { title: "Historial de Cambios", url: "gestion-empresas/historial-cambios" },
             { title: "Archivos Adjuntos", url: "gestion-empresas/archivos-adjuntos" },
-            { title: "Actividades y Descripciones", url: "gestion-empresas/actividades-descripciones" },
-        ],
+            {
+                title: "Actividades y Descripciones",
+                url: "gestion-empresas/actividades-descripciones",
+            },
+        ], */
     },
     {
         title: "Gestión de Secciones",
-        url: "",
+        url: "sections-management",
         icon: (
             <svg
                 className="section-icon"
@@ -36,7 +39,7 @@ export const sections = [
     },
     {
         title: "Gestión de Notificaciones",
-        url: "",
+        url: "notifications-management",
         icon: (
             <svg
                 className="section-icon"
@@ -71,7 +74,7 @@ export const sections = [
     },
     {
         title: "Monitorización y Análisis",
-        url: "",
+        url: "monitoring-analysis",
         icon: (
             <svg
                 className="section-icon"
@@ -94,6 +97,24 @@ export const sections = [
                 viewBox="0 0 576 512"
             >
                 <path d="M248 0H208c-26.5 0-48 21.5-48 48V160c0 35.3 28.7 64 64 64H352c35.3 0 64-28.7 64-64V48c0-26.5-21.5-48-48-48H328V80c0 8.8-7.2 16-16 16H264c-8.8 0-16-7.2-16-16V0zM64 256c-35.3 0-64 28.7-64 64V448c0 35.3 28.7 64 64 64H224c35.3 0 64-28.7 64-64V320c0-35.3-28.7-64-64-64H184v80c0 8.8-7.2 16-16 16H120c-8.8 0-16-7.2-16-16V256H64zM352 512H512c35.3 0 64-28.7 64-64V320c0-35.3-28.7-64-64-64H472v80c0 8.8-7.2 16-16 16H408c-8.8 0-16-7.2-16-16V256H352c-15 0-28.8 5.1-39.7 13.8c4.9 10.4 7.7 22 7.7 34.2V464c0 12.2-2.8 23.8-7.7 34.2C323.2 506.9 337 512 352 512z" />
+            </svg>
+        ),
+    },
+    {
+        title: "Ver Sitio Web",
+        url: "",
+        icon: (
+            <svg
+                className="section-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="1em"
+                height="1em"
+                viewBox="0 0 24 24"
+            >
+                <path
+                    fill="#000000"
+                    d="M4 20q-.825 0-1.413-.588T2 18V6q0-.825.588-1.413T4 4h16q.825 0 1.413.588T22 6v12q0 .825-.588 1.413T20 20H4Zm0-2h16V8H4v10Z"
+                />
             </svg>
         ),
     },

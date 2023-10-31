@@ -15,12 +15,18 @@ export const register = async (req, res) => {
             contrasena,
             confirmarContrasena,
             esEditor,
+            rol=null,
+            descripcion=null,
         } = userData;
 
         const user = new User(null, correo, contrasena, confirmarContrasena);
         user.setNombreCompleto(Nombre, Apellidos);
         user.setIsEditor(esEditor);
+        user.setRol(rol);
+        user.setDescripcion(descripcion);
 
+        console.log("Nuevo usuario: ",userData);
+        console.log("Nuevo usuario2: ",user);
         return await registerUserService(user);
     };
 

@@ -14,7 +14,8 @@ class User {
         this.createdAt = new Date();
         this.updatedAt = new Date();
         this.isEditor = false; // Campo para determinar si es editor
-        this.occupation = null;
+        this.role = null;
+        this.description = null;
     }
 
     setNombreCompleto(nombre, apellidos) {
@@ -32,6 +33,12 @@ class User {
 
     setIsEditor(esEditor) {
         this.isEditor = esEditor ? true : false;
+    }
+    setRol(rol){
+        this.rol = rol;
+    }
+    setDescripcion(desc){
+        this.descripcion = desc;
     }
 
     passwordsMatch() {

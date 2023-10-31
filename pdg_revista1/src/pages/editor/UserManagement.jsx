@@ -14,20 +14,13 @@ import UserListNavigation from "../../components/List/UserListNavigation";
 import DataTable from "../../components/List/DataTable";
 import UserFilters from "../../components/Filter/UserFilters";
 
+import config from "../../../config";
+
 import "../../assets/css/desktop/components/usermanagement.css";
 
 function PublisherRegistry() {
     const [usersList, setUsersList] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    /*     const [userTypeFilter, setUserTypeFilter] = useState("");
-    const [keyStatusFilter, setKeyStatusFilter] = useState("");
-    const [registrationDateFilter, setRegistrationDateFilter] = useState("");
-    const [lastAccessDateFilter, setLastAccessDateFilter] = useState("");
-    const [keyCreationDateFilter, setKeyCreationDateFilter] = useState("");
-    const [failedAttemptsFilter, setFailedAttemptsFilter] = useState("");
-    const [editorRoleFilter, setEditorRoleFilter] = useState("");
-    const [emailDomainFilter, setEmailDomainFilter] = useState("");
-    const [temporaryLockFilter, setTemporaryLockFilter] = useState(""); */
     const [filters, setFilters] = useState({
         userTypeFilter: "",
         keyStatusFilter: "",
@@ -43,7 +36,7 @@ function PublisherRegistry() {
     const [showMoreFilters, setShowMoreFilters] = useState(false);
     /* const [isModalOpen, setIsModalOpen] = useState(false); */
 
-    const [isModalOpen, setModalOpen] = useState(false);
+    const [isRegistrationModalOpen, setRegistrationModalOpen] = useState(false);
 
     const [isEditModalOpen, setEditModalOpen] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
@@ -70,6 +63,7 @@ function PublisherRegistry() {
     const fetchData = async () => {
         const data = await getUserDataList(currentPage);
         setUsersList(data);
+        /* console.log(data); */
     };
 
     useEffect(() => {
@@ -89,14 +83,16 @@ function PublisherRegistry() {
                     {/* <button>
                         Exportar
                     </button> */}
-                    <button className="btn-new-user" onClick={() => setModalOpen(true)}>
+                    <button className="btn-new-user" onClick={() => setRegistrationModalOpen(true)}>
                         Nuevo Usuario
                     </button>
                 </div>
-                <RegistrationModal
-                    isOpen={isModalOpen}
-                    onRequestClose={() => setModalOpen(false)}
-                /> 
+                {isRegistrationModalOpen && (
+                    <RegistrationModal
+                        isOpen={isRegistrationModalOpen}
+                        onRequestClose={() => setRegistrationModalOpen(false)}
+                    />
+                )}
                 <UserFilters
                     filters={filters}
                     setFilters={setFilters}
@@ -116,12 +112,19 @@ function PublisherRegistry() {
                         actions={userActions}
                         onEditUser={openEditModal}
                     />
+                    <UserListNavigation
+                        currentPage={currentPage}
+                        setCurrentPage={setCurrentPage}
+                        usersList={usersList}
+                    />
                 </div>
-                <EditUserModal
-                    isOpen={isEditModalOpen}
-                    onRequestClose={() => setEditModalOpen(false)}
-                    user={selectedUser}
-                />
+                {isEditModalOpen && (
+                    <EditUserModal
+                        isOpen={isEditModalOpen}
+                        onRequestClose={() => setEditModalOpen(false)}
+                        user={selectedUser}
+                    />
+                )}
             </section>
         </>
     );

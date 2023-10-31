@@ -1,10 +1,18 @@
 .sidebar {
-    max-width: 350px;
-    width: fit-content;
-    background-color: #88c7ff;
-    padding: 20px;
-    height: 100vh;
-    overflow-y: auto;
+    position: fixed;
+    top: 80px;
+    left: 0;
+    background-color: #f0ffff;
+    padding: 10px;
+    height: 100vh; /* Ahora sí queremos que sea del alto total de la ventana */
+    width: 350px;
+    overflow-y: auto; 
+    z-index: 10;
+    transition: width 0.3s;
+    border-right: 3px solid #b3b3b3;
+}
+.sidebar.collapsed {
+    width: 50px;
 }
 .section-icon {
     width: 24px;
@@ -20,16 +28,53 @@
 
 .section-header {
     width: 100%;
-    height: 55px;
+    height: 50px;
     display: flex; /* Aseguramos que los elementos dentro estén alineados horizontalmente */
-    justify-content: space-between;
     align-items: center; /* Centrar verticalmente los elementos */
     border-bottom: 1px solid #ccc;
 }
-/* .section-header:hover{
+.link-div-sect {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between; /* Esto hará que los elementos hijos se separen al máximo. */
+    align-items: center; 
+}
+.link-div-sect:hover{
+    cursor: pointer;
     background-color: #e6e6e6;
+    color: rgb(36, 29, 139);  
+}
+.left-group {
+    display: flex; /* Esto hará que el icon y el h2 se alineen horizontalmente. */
+    align-items: center; /* Esto asegura que estén centrados verticalmente. */
+}
+.link-div-sect .sect-name.hidden {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: none; /* Para evitar que los elementos ocultos sean clicables */
+    position: fixed;
+    left: 50px;
+}
+.link-div-sect.only-icon:hover .left-group .sect-name.hidden {
+    position: fixed;
+    left: 50px;
+    z-index: 25;
+    opacity: 1;
+    width: fit-content;
+    background-color: #d8d8d8;
+    padding: 10px;
+    border-radius: 3px;
+    pointer-events: auto; /* Restaura la interacción con el elemento visible */
+}
+/* .left-group.only-icon:hover .left-group.only-icon .sect-name.hidden {
+    display: block;
+    background-color: brown;
 } */
-
+/* .left-group.only-icon:hover{
+    background-color: brown;
+}
+ */
 .section-header h2 {
     margin: 0;
 }
@@ -47,11 +92,14 @@
 .subsection {
     list-style-type: none;
     padding-left: 20px;
-    margin-top: 10px;
+    /* padding-top: 10px; */
+    /* margin-top: 10px; */
     overflow: hidden;
     transition: max-height 0.3s ease-in-out;
 }
-
+.subsection.visible{
+    padding: 10px;
+}
 .subsection a{
     text-decoration: none;
     color: #000;
@@ -61,8 +109,8 @@
 }
 
 .subsection a:hover {
-    background-color: #e6e6e6; /* Color de fondo al pasar el mouse */
-    color: rgb(36, 29, 139);   /* Color de la fuente al pasar el mouse */
+    background-color: #e6e6e6;
+    color: rgb(36, 29, 139);  
 }
 .subsection li {
     margin-bottom: 8px;

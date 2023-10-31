@@ -25,6 +25,8 @@ const Register = ({ isPage = false, onRequestClose }) => {
         email: "",
         password: "",
         confirmPassword: "",
+        role: "",
+        description: "",
     });
     const resetForm = () => {
         setFormData({
@@ -33,6 +35,8 @@ const Register = ({ isPage = false, onRequestClose }) => {
             email: "",
             password: "",
             confirmPassword: "",
+            role: "",
+            description: "",
         });
         setIsEditorChecked(false);
         setSelectedRole("");
@@ -50,7 +54,7 @@ const Register = ({ isPage = false, onRequestClose }) => {
     const [passwordStrengthMessage, setPasswordStrengthMessage] = useState("");
     const [isConfirmPasswordValid, setIsConfirmPasswordValid] = useState(true);
     const [samePasswords, setSamePasswords] = useState();
-    
+
     const [isEditorChecked, setIsEditorChecked] = useState(false);
     const [roleDescription, setRoleDescription] = useState("");
     const [selectedRole, setSelectedRole] = useState("");
@@ -68,9 +72,7 @@ const Register = ({ isPage = false, onRequestClose }) => {
                 setPasswordStrengthMessage(""); // Si la contraseña está vacía, no mostrar mensaje
             } else {
                 const newPassword = value;
-                setPasswordStrengthMessage(
-                    getPasswordStrengthMessage(newPassword)
-                );
+                setPasswordStrengthMessage(getPasswordStrengthMessage(newPassword));
             }
         }
         if (name === "confirmPassword") {
@@ -84,11 +86,7 @@ const Register = ({ isPage = false, onRequestClose }) => {
     };
 
     const getMessageSamePassword = () => {
-        return (
-            <span className="invalid-feedback">
-                Las contraseñas no coinciden.
-            </span>
-        );
+        return <span className="invalid-feedback">Las contraseñas no coinciden.</span>;
     };
 
     const handleSubmit = async (e) => {
@@ -109,8 +107,7 @@ const Register = ({ isPage = false, onRequestClose }) => {
             alert("La contraseña no cumple con los criterios de seguridad");
             return;
         }
-
-        const userData = {
+        let userData = {
             Nombre: user.nombre,
             Apellidos: `${user.apellidoPaterno} ${user.apellidoMaterno}`.trim(),
             correo: user.email,
@@ -118,7 +115,19 @@ const Register = ({ isPage = false, onRequestClose }) => {
             confirmarContrasena: user.confirmPassword,
             esEditor: user.isEditor,
         };
+        
+        if (!isPage && isEditorChecked) {
+            user.setIsEditor(true);
+            user.setRol(formData.role);
+            user.setDescripcion(formData.description);
+        
+            // Agregando campos adicionales a userData
+            userData.esEditor = user.isEditor;
+            userData.rol = selectedRole;
+            userData.descripcion = roleDescription;
+        }
 
+        console.log("Nuevo usuario: ",userData);
         setLoading(true);
         try {
             const response = await register(userData);
@@ -160,11 +169,7 @@ const Register = ({ isPage = false, onRequestClose }) => {
                 );
             }
             if (!/\d/.test(password)) {
-                return (
-                    <span style={{ color: "red" }}>
-                        Debe contener al menos un número.
-                    </span>
-                );
+                return <span style={{ color: "red" }}>Debe contener al menos un número.</span>;
             }
             if (!/[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]/.test(password)) {
                 return (
@@ -222,11 +227,8 @@ const Register = ({ isPage = false, onRequestClose }) => {
                         </div>
                         {!isPage && (
                             <div>
-                                <label
-                                    htmlFor="check-is-editor"
-                                    className="label-check-editor"
-                                >
-                                    ¿Administrativo?   
+                                <label htmlFor="check-is-editor" className="label-check-editor">
+                                    ¿Administrativo?
                                 </label>
                                 <input
                                     type="checkbox"
@@ -236,35 +238,41 @@ const Register = ({ isPage = false, onRequestClose }) => {
                                 />
                             </div>
                         )}
-                        
-                        <div className={isEditorChecked ? "editor-fields open" : "editor-fields"}>
-                            <div>
-                                <label htmlFor="role">Rol:</label>
-                                <select 
-                                    id="role" 
-                                    value={selectedRole} 
-                                    onChange={(e) => setSelectedRole(e.target.value)}
-                                >
-                                    <option value="">Selecciona un rol</option>
-                                    <option value="Gerente General">Gerente General</option>
-                                    <option value="Fotógrafo">Fotógrafo</option>
-                                    <option value="Gerente de Marketing">Gerente de Marketing</option>
-                                    <option value="Coordinador de Redes Sociales">Coordinador de Redes Sociales</option>
-                                    
-                                </select>
+                        {!isPage && (
+                            <div
+                                className={isEditorChecked ? "editor-fields open" : "editor-fields"}
+                            >
+                                <div>
+                                    <label htmlFor="role">Rol:</label>
+                                    <select
+                                        id="role"
+                                        value={selectedRole}
+                                        onChange={(e) => setSelectedRole(e.target.value)}
+                                    >
+                                        <option value="">Selecciona un rol</option>
+                                        <option value="Gerente General">Gerente General</option>
+                                        <option value="Fotógrafo">Fotógrafo</option>
+                                        <option value="Gerente de Marketing">
+                                            Gerente de Marketing
+                                        </option>
+                                        <option value="Coordinador de Redes Sociales">
+                                            Coordinador de Redes Sociales
+                                        </option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label htmlFor="description">Descripción:</label>
+                                    <textarea
+                                        id="description"
+                                        value={roleDescription}
+                                        onChange={(e) => setRoleDescription(e.target.value)}
+                                        maxLength={200}
+                                        placeholder="Descripción (máximo 200 caracteres)"
+                                    ></textarea>
+                                </div>
                             </div>
-                            <div>
-                                <label htmlFor="description">Descripción:</label>
-                                <textarea 
-                                    id="description"
-                                    /* value={roleDescription} */
-                                    onChange={(e) => setRoleDescription(e.target.value)}
-                                    /* maxLength={200}
-                                    placeholder="Descripción (máximo 200 caracteres)" */
-                                ></textarea>
-                            </div>
-                        </div>
-                        
+                        )}
+
                         <InputField
                             type="email"
                             name="email"
@@ -299,10 +307,7 @@ const Register = ({ isPage = false, onRequestClose }) => {
                         </div>
 
                         <div className="btn-contain">
-                            <button
-                                type="submit"
-                                className="btn btn-primary mb-3"
-                            >
+                            <button type="submit" className="btn btn-primary mb-3">
                                 {loading ? "Cargando..." : "Registrarse"}
                             </button>
                         </div>

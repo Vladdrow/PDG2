@@ -7,8 +7,13 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 import "../../assets/css/desktop/components/dashboard.css";
 
 import UserManagement from "./UserManagement";
+import NotificationsManagement from "./NotificationsManagement";
+import EntitiesManagement from "./EntitiesManagement";
+import SectionsManagement from "./SectionsManagement";
+import MonitoringAnalysis from "./MonitoringAnalysis";
 
 function Dashboard() {
+    const [collapsed, setCollapsed] = useState(false);
     const [selectedItem, setSelectedItem] = useState(""); // Paso 1
     const User = {
         ID: "12345", // ID único del usuario
@@ -56,14 +61,35 @@ function Dashboard() {
     return (
         <>
             <Header Pages={EditorPages} User={User} />
+
             <main className="dashboard-container">
-                <Sidebar onSelect={setSelectedItem} />
-                <div className="canvas">
+                <Sidebar onSelect={setSelectedItem} onCollapsed={collapsed} />
+                <div className={`canvas ${collapsed ? "full" : ""}`}>
+                    <button
+                        className={`btn-collapsed ${collapsed ? "pressed" : ""}`}
+                        onClick={() => setCollapsed(!collapsed)}
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512">
+                            <path d="M40 48C26.7 48 16 58.7 16 72v48c0 13.3 10.7 24 24 24H88c13.3 0 24-10.7 24-24V72c0-13.3-10.7-24-24-24H40zM192 64c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zM16 232v48c0 13.3 10.7 24 24 24H88c13.3 0 24-10.7 24-24V232c0-13.3-10.7-24-24-24H40c-13.3 0-24 10.7-24 24zM40 368c-13.3 0-24 10.7-24 24v48c0 13.3 10.7 24 24 24H88c13.3 0 24-10.7 24-24V392c0-13.3-10.7-24-24-24H40z" />
+                        </svg>
+                    </button>
+                    <Routes>
+                        <Route path="entities-management" element={<EntitiesManagement />} />
+                    </Routes>
+                    <Routes>
+                        <Route path="sections-management" element={<SectionsManagement />} />
+                    </Routes>
                     <Routes>
                         <Route
-                            path="user-management"
-                            element={<UserManagement />}
+                            path="notifications-management"
+                            element={<NotificationsManagement />}
                         />
+                    </Routes>
+                    <Routes>
+                        <Route path="user-management" element={<UserManagement />} />
+                    </Routes>
+                    <Routes>
+                        <Route path="monitoring-analysis" element={<MonitoringAnalysis />} />
                     </Routes>
                 </div>
             </main>

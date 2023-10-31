@@ -71,7 +71,7 @@ export const getSocialNetworks = async (req, res) => {
 
 export const getBasicUsersUnifiedData = async (req, res) => {
     const page = parseInt(req.query.page) || 1; // Por defecto página 1
-    const pageSize = parseInt(req.query.pageSize) || 20; // Por defecto 20 registros por página
+    const pageSize = parseInt(req.query.pageSize) || 30; // Por defecto 20 registros por página
 
     try {
         const users = await fetchBasicUsersUnified(page, pageSize);

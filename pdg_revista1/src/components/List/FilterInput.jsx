@@ -1,13 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 
-function FilterInput({ label, value, onChange, placeholder }) {
+function FilterInput({ type = "date", label, defaultValue, onChange, placeholder }) {
+    const [altered, setAltered] = useState(false);
+    const [currentValue, setCurrentValue] = useState(defaultValue);
+
+    const handleOnChange = (e) => {
+        const newValue = e.target.value;
+        setCurrentValue(newValue);
+        
+        if(newValue === defaultValue || newValue === "") {
+            setAltered(false);
+        } else {
+            setAltered(true);
+        }
+
+        if(onChange) {
+            onChange(e);
+        }
+    }
+
     return (
         <div className="filter-wrapper">
-            <label className="filter-label">{label}</label>
+            <label className={`filter-label ${altered ? 'altered' : ''}`}>{label}</label>
             <input
-                type="date"
-                value={value}
-                onChange={onChange}
+                type={type}
+                value={currentValue}
+                onChange={handleOnChange}
                 placeholder={placeholder}
             />
         </div>

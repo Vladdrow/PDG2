@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
 import Modal from "react-modal";
 import InputField from "../Form/InputField";
+import SelectField from "../Form/SelectField";
+import { convertToTimeZone } from "../../utils/timeUtils";
 
+import "../../assets/css/desktop/components/edituser.css";
 Modal.setAppElement("#root"); // Esto es para la accesibilidad
 
 function EditUserModal({ isOpen, onRequestClose, user }) {
@@ -12,6 +15,8 @@ function EditUserModal({ isOpen, onRequestClose, user }) {
     const [email, setEmail] = useState(user?.CorreoElectronico || "");
     const [userType, setUserType] = useState(user?.TipoUsuario || "");
     const [registrationDate, setRegistrationDate] = useState(user?.FechaRegistro || "");
+    const [urlImagen, setUrlImagen] = useState(user?.RutaImagen || "");
+    const convertedDate = user?.FechaRegistro ? convertToTimeZone(user?.FechaRegistro) : "";
 
     // Este useEffect se ejecutará cada vez que la propiedad 'user' cambie
     useEffect(() => {
@@ -21,8 +26,11 @@ function EditUserModal({ isOpen, onRequestClose, user }) {
             setSurname(user.Apellidos || "");
             setEmail(user.CorreoElectronico || "");
             setUserType(user.TipoUsuario || "");
-            setRegistrationDate(user.FechaRegistro || "");
+            setUrlImagen(user.RutaImagen || "");
+            setRegistrationDate(convertedDate);
+            /* setRegistrationDate(user.FechaRegistro || ""); */
         }
+        console.log(user);
     }, [user]);
 
     const handleSaveChanges = () => {
@@ -38,23 +46,37 @@ function EditUserModal({ isOpen, onRequestClose, user }) {
             className={{
                 base: "modal-content",
                 afterOpen: "modal-content--after-open",
+                beforeClose: "modal-content--before-close",
             }}
             overlayClassName={{
                 base: "modal-overlay",
                 afterOpen: "modal-overlay--after-open",
+                beforeClose: "modal-overlay--before-close",
             }}
         >
             <button className="close-modal" onClick={onRequestClose}>
                 X
             </button>
-            <div>
-                <h2>Editar Usuario</h2>
-                <InputField
-                    label="ID"
-                    value={id}
-                    readOnly // ID generalmente no debería ser editable
-                />
-                <InputField label="Nombre" value={name} onChange={(e) => setName(e.target.value)} />
+            <h2>Editar Usuario</h2>
+            <form id="edit-user">
+                <div className="box-inp row">
+                    <div className="left-user">
+                        <img src={urlImagen} width="150" height="150" alt={name}/>
+                    </div>
+                    <div className="right-user">
+                        <InputField
+                            label="ID"
+                            value={id}
+                            inpclass="form-control id-not-edit"
+                            readOnly // ID generalmente no debería ser editable
+                        />
+                        <InputField
+                            label="Nombre"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                        />
+                    </div>
+                </div>
                 <InputField
                     label="Apellidos"
                     value={surname}
@@ -65,19 +87,25 @@ function EditUserModal({ isOpen, onRequestClose, user }) {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                 />
-                <InputField
-                    label="Tipo de Usuario"
-                    value={userType}
-                    onChange={(e) => setUserType(e.target.value)}
-                />
-                <InputField
-                    label="Fecha de Registro"
-                    value={registrationDate}
-                    readOnly // Las fechas de registro también podrían no ser editables
-                />
-                {/* ... (otros campos que quieras incluir) */}
-                <button onClick={handleSaveChanges}>Guardar Cambios</button>
-            </div>
+                <div className="box-inp row mb-5">
+                    <SelectField
+                        label="Tipo de Usuario" 
+                        value={userType}
+                        onChange={(e) => setUserType(e.target.value)}
+                        options={[
+                            { value: "Lector", label: "Lector" },
+                            { value: "Editor", label: "Administrativo" }
+                        ]}
+                    />
+                    <InputField
+                        label="Fecha de Registro"
+                        value={registrationDate}
+                        inpclass="form-control date-not-edit"
+                        readOnly // Las fechas de registro también podrían no ser editables
+                    />
+                </div>
+            </form>
+            <button onClick={handleSaveChanges}>Guardar Cambios</button>
         </Modal>
     );
 }

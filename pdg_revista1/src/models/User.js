@@ -6,6 +6,8 @@ class User {
         this.apellidoPaterno = "";
         this.apellidoMaterno = "";
         this.isEditor = false;
+        this.rol = "";
+        this.descripcion = "";
     }
 
     setNombreCompleto(nombre, apellidos) {
@@ -23,6 +25,12 @@ class User {
 
     setIsEditor(esEditor) {
         this.isEditor = esEditor ? true : false;
+    }
+    setRol(rol){
+        this.rol = rol;
+    }
+    setDescripcion(desc){
+        this.descripcion = desc;
     }
 }
 

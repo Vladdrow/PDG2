@@ -12,16 +12,15 @@
 }
  */
 #show-users{
-    /* width: fit-content; */
-    padding: 0px 20px 20px 20px;
+    padding: 10px 20px 20px 50px;
     width: 100%;
     height: fit-content;
     background-color: azure;
 }
 
 #show-users h2 {
-    margin-top: 25px;
-    margin-bottom: 40px;
+    margin-top: 20px;
+    margin-bottom: 30px;
 }
 .header-section {
     display: flex;
@@ -48,7 +47,7 @@
     min-width: 1200px;
     /* max-width: 1300px; */
     margin: 0 auto;
-    height: 100vh;
+    /* height: 100vh; */
     position: relative;  
     /* max-height: calc(100vh - 50px); */
     overflow-y: auto;
@@ -63,7 +62,7 @@
 .filters-users-list {
     border: 1px solid rgb(121, 119, 119); /* Ajusta el color y el grosor del borde según sea necesario */
     position: relative;
-    padding: 5px;
+    padding: 10px 5px;
     border-radius: 5px;
     display: flex;
     flex-wrap: wrap;
@@ -91,12 +90,12 @@
     align-items: center;
     justify-content: center;  /* Centrar los filtros principales horizontalmente */
 }
-
-.filter-wrapper {
+/* COMPONENTS FILTERS */
+/* .filter-wrapper {
     display: flex;
     align-items: center;
     gap: 10px;
-    flex-wrap: nowrap; /* Evita que los hijos del contenedor se ajusten al ancho disponible */
+    flex-wrap: nowrap;
 }
 
 .filter-label {
@@ -112,8 +111,81 @@
 .filter-select:focus, .filter-input:focus {
     border-color: #007bff;
     outline: none;
+} */
+.filter-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    cursor: pointer;
+    width: max-content;
+    overflow: hidden;
+    background-color: #f5f5f5;
+    border-radius: 5px;
 }
 
+.filter-label {
+    background: #f5f5f5;
+    transition: margin-right 0.3s;
+    margin-right: 0;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.filters-users-list input[type="date"] {
+    width: 0;
+    opacity: 0;
+    transition: width 0.3s, opacity 0.3s;
+    border: none;
+    margin-left: -5px;
+    outline: none;
+    background-color: transparent;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.filters-users-list select {
+    width: 0;
+    opacity: 0;
+    transition: width 0.3s, opacity 0.3s;
+    border: none;
+    margin-left: 5px;
+    outline: none;
+    background-color: transparent;
+    padding: 5px 8px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.filter-wrapper:hover input[type="date"] {
+    width: 150px;
+    opacity: 1;
+}
+
+.filter-wrapper:hover select {
+    width: 150px;  /* Ajusta según prefieras */
+    opacity: 1;
+}
+
+.altered::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: red;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    z-index: 2;
+}
+
+select:focus {
+    background-color: #fff;
+    border: 1px solid #ccc;
+}
+
+/*  */
 .show-more-btn {
     background-color: #007bff;
     color: white;
@@ -221,23 +293,22 @@
 /* BOTONES */
 .btn-list-nav {
     display: flex;
-    justify-content: flex-end; /* Centra los elementos horizontalmente */
-    align-items: center;     /* Centra los elementos verticalmente */
-    margin-top: 20px;        /* Espaciado desde la parte superior */
-    margin-bottom: 20px;
+    justify-content: flex-end; 
+    align-items: center;     
+    /* margin-top: 10px; */
+    margin-bottom: 15px;
     position: sticky; 
-    bottom: 0;  
-    background-color: white; 
+    /* background-color: white;  */
     width: 100%;  
-    padding: 10px 0;  
-    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+      
+    /* box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1); */
 }
 
 /* Estilo base para los botones Anterior y Siguiente */
 .btn-list-nav button, .btn-new-user {
     background-color: #007bff;
     color: #ffffff;
-    padding: 10px 15px;
+    /* padding: 10px 15px; */
     border: none;
     border-radius: 4px;
     cursor: pointer;

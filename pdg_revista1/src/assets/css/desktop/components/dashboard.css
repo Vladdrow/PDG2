@@ -2,25 +2,45 @@
     margin: 0;
     border-radius: 0;
     background-color: #78b2e6;
-}
-
-.dashboard-container {
-    display: flex;
-    height: 100vh;
-}
-
-.canvas {
-    flex: 1;  /* Esto hace que el canvas tome todo el espacio restante */
-    overflow: auto; /* En caso de que haya contenido que exceda su altura */
-    padding: 20px;
-    box-sizing: border-box;
-    background-color: #fcfcfc;
-    border-left: 3px solid #818181;
-    display: flex;
-    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
+    z-index: 100;
+}
+.btn-collapsed {
+    position: fixed;
+    top: 81px;
+    left: 338px;
+    transition: left 0.3s;
+    border: none !important;
+}
+.btn-collapsed.pressed{
+    left: 38px;
+}
+.canvas {
+    margin-top: 60px;    
+    margin-left: 350px;
+    width: calc(100% - 350px);
+    height: 100%;
+    transition: margin-left 0.3s, width 0.3s;
+}
+.canvas.full {
+    margin-left: 50px;
+    width: calc(100% - 50px);
 }
 .canvas h2 {
     text-align: center;
+    margin-bottom: 30px;
+}
+
+.canvas section {
+    padding: 10px 20px 20px 50px;
+    width: 100%;
+    height: fit-content;
+    background-color: azure;
+}
+.canvas section h2 {
+    margin-top: 20px;
     margin-bottom: 30px;
 }

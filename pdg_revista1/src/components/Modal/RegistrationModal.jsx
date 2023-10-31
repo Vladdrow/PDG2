@@ -15,13 +15,14 @@ function RegistrationModal({ isOpen, onRequestClose }) {
             onRequestClose={onRequestClose}
             contentLabel="Modal de Registro"
             className={{
-                base: "modal-content",
-                afterOpen: "modal-content--after-open",
-                
+                base: 'modal-content',
+                afterOpen: 'modal-content--after-open',
+                beforeClose: 'modal-content--before-close',
             }}
             overlayClassName={{
-                base: "modal-overlay",
-                afterOpen: "modal-overlay--after-open",
+                base: 'modal-overlay',
+                afterOpen: 'modal-overlay--after-open',
+                beforeClose: 'modal-overlay--before-close',
             }}
         >
             <button className="close-modal" onClick={onRequestClose}>

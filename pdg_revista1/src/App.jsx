@@ -8,6 +8,7 @@ import Login from "./pages/public/Login";
 import Register from "./pages/public/Register";
 import Home from "./pages/public/Home";
 import Contact from "./pages/public/Contact";
+import About from "./pages/public/About";
 /* Pages Editor */
 import Dashboard from "./pages/editor/Dashboard";
 
@@ -44,8 +45,8 @@ function App() {
             <Routes>
                 {/* Rutas para todos */}
                 <Route path="/" element={<Home />} />
-                {/* <Route path="/explore" element={<Explore />} />
-                <Route path="/about" element={<About />} />*/}
+                {/* {/* <Route path="/explore" element={<Explore />} /> */}
+                <Route path="/about" element={<About />} />
                 <Route path="/contact" element={<Contact />} /> 
                 <Route path="/register" element={<Register isPage={true}/>} />
                 <Route path="/login" element={<Login />} />

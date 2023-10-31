@@ -51,7 +51,7 @@ export const getSocialNetworksFromDB = async () => {
 };
 
 /* Editores */
-export const getBasicUsersUnified = async (page = 1, pageSize = 20) => {
+export const getBasicUsersUnified = async (page = 1, pageSize = 30) => {
     const offset = (page - 1) * pageSize;
     const query = `
         SELECT 
@@ -68,6 +68,8 @@ export const getBasicUsersUnified = async (page = 1, pageSize = 20) => {
                 WHEN e.ID IS NOT NULL THEN 'Editor'
                 ELSE 'Lector'
             END AS TipoUsuario,
+            u.RutaImagen,
+            u.NombreImagen,
             u.FechaRegistro,
             u.FechaUltimoAcceso
         FROM Usuario u

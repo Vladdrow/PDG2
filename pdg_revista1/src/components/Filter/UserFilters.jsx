@@ -2,55 +2,82 @@ import React from "react";
 import FilterDropdown from "../List/FilterDropdown";
 import FilterInput from "../List/FilterInput";
 
-function UserFilters({
-    filters,
-    setFilters,
-    showMoreFilters,
-    setShowMoreFilters,
-}) {
+function UserFilters({ filters, setFilters, showMoreFilters, setShowMoreFilters }) {
     const updateFilter = (filterKey, value) => {
-        setFilters(prevFilters => ({ ...prevFilters, [filterKey]: value }));
+        setFilters((prevFilters) => ({ ...prevFilters, [filterKey]: value }));
     };
 
     return (
         <div className="filters-users-list">
             <div className="main-filters">
                 <FilterDropdown
-                    label="Tipo de Usuario:"
+                    label="Tipo de Usuario"
                     options={[
                         { value: "Editor", label: "Administrativo" },
                         { value: "Lector", label: "Lectores" },
                     ]}
                     value={filters.userTypeFilter}
-                    onChange={(e) => updateFilter('userTypeFilter', e.target.value)}
+                    onChange={(e) => updateFilter("userTypeFilter", e.target.value)}
                 />
                 <FilterDropdown
-                    label="Rol:"
+                    label="Rol"
                     options={[
                         { value: "Rol1", label: "Rol 1" },
                         { value: "Rol2", label: "Rol 2" },
                         // ... otros roles
                     ]}
                     value={filters.editorRoleFilter}
-                    onChange={(e) => updateFilter('editorRoleFilter', e.target.value)}
+                    onChange={(e) => updateFilter("editorRoleFilter", e.target.value)}
                 />
                 <FilterInput
-                    label="Registro:"
+                    label="Registro"
                     value={filters.registrationDateFilter}
-                    onChange={(e) => updateFilter('registrationDateFilter', e.target.value)}
+                    onChange={(e) => updateFilter("registrationDateFilter", e.target.value)}
                     placeholder="Fecha de registro"
                 />
+                <FilterDropdown
+                    label="Bloqueo temporal"
+                    options={[
+                        { value: "Bloqueado", label: "Bloqueados" },
+                        { value: "NoBloqueado", label: "No bloqueados" },
+                    ]}
+                    value={filters.temporaryLockFilter}
+                    onChange={(e) => updateFilter("temporaryLockFilter", e.target.value)}
+                />
+                {/* <FilterInput
+                    label="Último acceso"
+                    value={filters.lastAccessDateFilter}
+                    onChange={(e) => updateFilter("lastAccessDateFilter", e.target.value)}
+                    placeholder="Fecha de último acceso"
+                /> */}
+                <FilterDropdown
+                    label="Dominio de correo electrónico"
+                    options={[
+                        { value: "@hotmail.com", label: "@hotmail.com" },
+                        { value: "@gmail.com", label: "@gmail.com" },
+                        // ... otros dominios
+                    ]}
+                    value={filters.emailDomainFilter}
+                    onChange={(e) => updateFilter("emailDomainFilter", e.target.value)}
+                />
+                <FilterDropdown
+                    label="Estado de la llave"
+                    options={[
+                        { value: "Activa", label: "Llaves activas" },
+                        { value: "Inactiva", label: "Llaves inactivas" },
+                        { value: "Expirada", label: "Llaves expiradas" },
+                    ]}
+                    value={filters.keyStatusFilter}
+                    onChange={(e) => updateFilter("keyStatusFilter", e.target.value)}
+                />
+                <FilterInput
+                    label="Creacion de llave"
+                    value={filters.keyCreationDateFilter}
+                    onChange={(e) => updateFilter("keyCreationDateFilter", e.target.value)}
+                    placeholder="Fecha de creación de llave"
+                />
                 <div className="last-main-filter-with-button">
-                    <FilterDropdown
-                        label="Bloqueo temporal:"
-                        options={[
-                            { value: "Bloqueado", label: "Bloqueados" },
-                            { value: "NoBloqueado", label: "No bloqueados" },
-                        ]}
-                        value={filters.temporaryLockFilter}
-                        onChange={(e) => updateFilter('temporaryLockFilter', e.target.value)}
-                    />
-                    <button
+                    {/* <button
                         className="show-more-btn"
                         onClick={() => setShowMoreFilters(!showMoreFilters)}
                     >
@@ -66,10 +93,10 @@ function UserFilters({
                                 <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
                             </svg>
                         )}
-                    </button>
+                    </button> */}
                 </div>
             </div>
-            {showMoreFilters && (
+            {/* {showMoreFilters && (
                 <div className="additional-filters">
                     <FilterInput
                         label="Último acceso:"
@@ -104,7 +131,7 @@ function UserFilters({
                         placeholder="Fecha de creación de llave"
                     />
                 </div>
-            )}
+            )} */}
         </div>
     );
 }

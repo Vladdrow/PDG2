@@ -1,3 +1,3 @@
 export default {
-    ipAddress: "192.168.131.228",
+    ipAddress: "192.168.210.228",
 };

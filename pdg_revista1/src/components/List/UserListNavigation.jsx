@@ -11,7 +11,7 @@ function UserListNavigation({ currentPage, setCurrentPage, usersList }) {
                 Anterior
             </button>
             <span>Página {currentPage}</span>
-            <button onClick={handleNextPage} disabled={usersList.length < 20}>
+            <button onClick={handleNextPage} disabled={usersList.length < 30}>
                 Siguiente
             </button>
         </div>

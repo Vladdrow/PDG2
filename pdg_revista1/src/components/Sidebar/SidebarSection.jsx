@@ -14,9 +14,10 @@ const SidebarSection = ({ title, url, items, icon, onSelect, onCollapsed }) => {
 
     const handleSectionClick = () => {
         setIsVisible(!isVisible);
-        onSelect(url);
-
-        navigate(`/auth/editor/dashboard/${url.toLowerCase().replace(/ /g, "-")}`);
+        /* onSelect(url); */
+        console.log(url);
+        navigate(url);
+        
     };
 
     useEffect(() => {
@@ -28,8 +29,8 @@ const SidebarSection = ({ title, url, items, icon, onSelect, onCollapsed }) => {
     return (
         <section className="section">
             <div className="section-header">
-                <div className={`link-div-sect ${onCollapsed ? "only-icon" : ""}`}>
-                    <div onClick={handleSectionClick} className={`left-group ${onCollapsed ? "" : ""}`}>
+                <div className={`link-div-sect ${onCollapsed ? "only-icon" : ""}`} onClick={handleSectionClick}>
+                    <div className={`left-group ${onCollapsed ? "" : ""}`}>
                         {icon}
                         <h2
                             className={`sect-name ${onCollapsed ? "hidden" : ""} `}
